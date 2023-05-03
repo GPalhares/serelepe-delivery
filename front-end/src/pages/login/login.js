@@ -26,7 +26,10 @@ function LoginPage() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    const { data, status } = await fetchLogin({ email, password });
+    // const { data, status } = await fetchLogin({ email, password });
+    const dataResult = await fetchLogin({ email, password });
+    console.log(dataResult);
+    const { data, status } = dataResult;
     const statusCode = 404;
     if (status === statusCode) {
       setInvalidLogin(true);

@@ -1,34 +1,35 @@
-/* eslint-disable max-lines-per-function */
+'use strict';
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable('users', { 
       id: {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER 
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       email: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
+        unique: true
       },
       password: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       role: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
     });
   },
 
-  async down(queryInterface) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
-  },
+  }
 };

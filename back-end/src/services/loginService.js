@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { User } = require('../models');
+const { User } = require('../database/models');
 
 const login = async (email, loginPassword) => {
   const userLogin = await User.findOne({ where: { email } });
