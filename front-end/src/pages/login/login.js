@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetchLogin from '../../api/fetchLogin';
+import { saveLocal } from '../../helpers/localStorage';
 
 function LoginPage() {
   const history = useHistory();
@@ -26,18 +27,17 @@ function LoginPage() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    // const { data, status } = await fetchLogin({ email, password });
+    const apiError = 404;
+
     const dataResult = await fetchLogin({ email, password });
-    console.log(dataResult);
-    const { data, status } = dataResult;
-    const statusCode = 404;
-    if (status === statusCode) {
+
+    if (dataResult.status === apiError) {
       setInvalidLogin(true);
-      return setMessageError(data.message);
+      return setMessageError('Invalid Login');
     }
     setInvalidLogin(false);
-    savingLocal('user', data);
-    history.push('/');
+    saveLocal('user', dataResult.data);
+    history.push('/customer/products');
   };
 
   return (
