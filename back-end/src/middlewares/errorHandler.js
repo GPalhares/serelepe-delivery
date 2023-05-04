@@ -1,7 +1,7 @@
 const errors = [
+  { status: 401, message: 'Incorrect password' },
   { status: 404, message: 'User not found' },
   { status: 409, message: 'User already exist' },
-  { status: 401, message: 'Incorrect password' },
 ];
 
 const errorHandler = (error, _req, res, next) => {
