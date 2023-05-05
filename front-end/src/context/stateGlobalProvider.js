@@ -20,18 +20,14 @@ function StateGlobalProvider(props) {
     return setTotalPurchased([...withNoProduct, obj]);
   };
 
-  const calculator = () => {
+  useEffect(() => {
     const result = total.reduce((acc, curr) => {
       acc += (curr.counter * Number(curr.price));
       return acc;
     }, 0);
-    return result.toFixed(2);
-  };
 
-  useEffect(() => {
-    setTotal(calculator());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPurchased]);
+    setTotal(result.toFixed(2));
+  }, [totalPurchased, total]);
 
   const value = {
     totalPurchased,

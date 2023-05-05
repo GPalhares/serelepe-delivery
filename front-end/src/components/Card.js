@@ -9,8 +9,7 @@ function Card({ product }) {
 
   useEffect(() => {
     addAndRemoveTotal({ ...product, counter });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counter]);
+  }, [counter, addAndRemoveTotal, product]);
 
   function increment() {
     setCounter(counter + 1);
