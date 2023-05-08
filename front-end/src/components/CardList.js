@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import fetchProduct from '../api/fetchProducts';
 import Card from './Card';
-// import addAndRemoveTotal from '../helpers/cartFunctions';
-import sumItems from '../helpers/cartFunctions';
+import { sumItems, sumItemsValue } from '../helpers/cartFunctions';
 import stateGlobalContext from '../context/stateGlobalContext';
+import { readLocal, saveLocal } from '../helpers/localStorage';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);
@@ -19,11 +19,16 @@ function CardList() {
   }, []);
 
   const incrementOrDecrement = (item) => {
-    if (carItensLocal.length > 0) setCarItensLocal([...carItensLocal, item]);
-    if (carItensLocal.length === 0) setCarItensLocal([item]);
-    const updatedState = sumItems(carItensLocal);
-    setMyArray(updatedState);
-    console.log(myArray);
+    setCarItensLocal((prevCarItens) => {
+      const updatedCarItens = [...prevCarItens, item];
+      const updatedState = sumItems(updatedCarItens);
+      console.log(carItensLocal);
+      setMyArray(updatedState);
+      saveLocal('cartItems', updatedState);
+      saveLocal('cartValue', sumItemsValue(updatedState));
+
+      return updatedCarItens;
+    });
   };
 
   return (
@@ -31,18 +36,25 @@ function CardList() {
       <h1>Cards</h1>
       <div className="card-list">
         {
-          productsList.map((prod, index) => (
-            <div key={ index }>
-              <Card
-                name={ prod.name }
-                id={ prod.id }
-                price={ prod.price }
-                urlImage={ prod.url_image }
-                incrementOrDecrement={ incrementOrDecrement }
-              />
-            </div>
-          ))
+          productsList.map((prod, index) => {
+            const cartItem = readLocal('cartItems')?.find((item) => item.id === prod.id);
+            const quantity = cartItem?.quantity ?? 0;
+
+            return (
+              <div key={ index }>
+                <Card
+                  name={ prod.name }
+                  id={ prod.id }
+                  quantity={ quantity }
+                  price={ prod.price }
+                  urlImage={ prod.url_image }
+                  incrementOrDecrement={ incrementOrDecrement }
+                />
+              </div>
+            );
+          })
         }
+
       </div>
     </>
   );

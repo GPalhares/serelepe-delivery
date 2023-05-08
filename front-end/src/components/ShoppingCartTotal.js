@@ -1,17 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import stateGlobalContext from '../context/stateGlobalContext';
+import { sumItemsValue } from '../helpers/cartFunctions';
+import { readLocal } from '../helpers/localStorage';
 
 function ShoppingCartTotal() {
-  console.log(useContext(stateGlobalContext));
-  const total = useContext(stateGlobalContext);
+  const { myArray } = useContext(stateGlobalContext);
+  const [total, setTotal] = useState(0);
   const history = useHistory();
   const [disabled, setDisabled] = useState(true);
+  const localCart = readLocal('cartValue');
 
   useEffect(() => {
-    if (total > 0) return setDisabled(false);
-    return setDisabled(true);
-  }, [total]);
+    if (myArray.length > 0) {
+      setTotal(readLocal('cartValue'));
+      setDisabled(false);
+    } else {
+      setTotal(0);
+      setDisabled(true);
+    }
+  }, [myArray]);
+
+  useEffect(() => {
+    if (readLocal('cartValue')) {
+      setTotal(readLocal('cartValue'));
+    }
+  }, [localCart]);
 
   return (
     <div>
@@ -26,7 +40,7 @@ function ShoppingCartTotal() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { `${total}` }
+          { `${total.toFixed(2).replace('.', ',')}` }
         </span>
       </button>
     </div>

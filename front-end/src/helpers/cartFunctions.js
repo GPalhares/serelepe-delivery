@@ -15,4 +15,14 @@ function sumItems(items) {
 
   return Array.from(map.values());
 }
-export default sumItems;
+
+function sumItemsValue(items) {
+  let total = 0;
+  items.reduce((acc, curr) => {
+    acc += (curr.quantity * Number(curr.price));
+    total = acc;
+    return acc;
+  }, 0);
+  return total;
+}
+export { sumItems, sumItemsValue };

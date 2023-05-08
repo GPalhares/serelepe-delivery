@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-function Card({ name, urlImage, id, price, incrementOrDecrement }) {
+function Card({ name, urlImage, id, price, incrementOrDecrement, quantity }) {
   const [counter, setCounter] = useState(0);
   const [disabled, setDisabled] = useState(false);
-  function handleChange() {
-    setCounter(0);
-  }
+
   useEffect(() => {
     setDisabled(counter === 0);
   }, [counter]);
@@ -42,9 +40,9 @@ function Card({ name, urlImage, id, price, incrementOrDecrement }) {
       <input
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
-        onChange={ handleChange }
+        // onChange={ handleChange }
         min={ 0 }
-        value={ Number(counter) }
+        value={ quantity }
       />
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
@@ -64,6 +62,7 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
   incrementOrDecrement: PropTypes.func.isRequired,
   price: PropTypes.shape({
     replace: PropTypes.func,
