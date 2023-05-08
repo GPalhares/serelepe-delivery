@@ -3,7 +3,7 @@ import fetchProduct from '../api/fetchProducts';
 import Card from './Card';
 import { sumItems, sumItemsValue } from '../helpers/cartFunctions';
 import stateGlobalContext from '../context/stateGlobalContext';
-import { checkLocal, readLocal, saveLocal } from '../helpers/localStorage';
+import { readLocal, saveLocal } from '../helpers/localStorage';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);
