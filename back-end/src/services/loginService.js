@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const { createToken } = require('../utils/createToken');
 const { User } = require('../database/models');
 
 const login = async (email, loginPassword) => {
@@ -8,7 +9,7 @@ const login = async (email, loginPassword) => {
   if (md5(loginPassword) !== userLogin.password) throw new Error('Incorrect password');
 
   const { password, id, ...userInfo } = userLogin.dataValues;
-  return { ...userInfo };
+  return { ...userInfo, token: createToken(userInfo.password, userInfo.email) };
 };
 
 module.exports = {

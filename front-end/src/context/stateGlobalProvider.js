@@ -13,21 +13,25 @@ function StateGlobalProvider(props) {
   const { children } = props;
 
   const addAndRemoveTotal = (obj) => {
-    const isThereSomething = total.some(({ id }) => obj.id === id);
-    if (!isThereSomething && obj.counter > 0) return setTotalPurchased([...total, obj]);
-    const withNoProduct = total.filter(({ id }) => id !== obj.id);
+    const isThereSomething = totalPurchased.some(({ id }) => obj.id === id);
+    if (!isThereSomething && obj.counter > 0) {
+      return setTotalPurchased(
+        [...totalPurchased, obj],
+      );
+    }
+    const withNoProduct = totalPurchased.filter(({ id }) => id !== obj.id);
     if (obj.counter === 0) return setTotalPurchased([...withNoProduct]);
     return setTotalPurchased([...withNoProduct, obj]);
   };
 
   useEffect(() => {
-    const result = total.reduce((acc, curr) => {
+    const result = totalPurchased.reduce((acc, curr) => {
       acc += (curr.counter * Number(curr.price));
       return acc;
     }, 0);
 
     setTotal(result.toFixed(2));
-  }, [totalPurchased, total]);
+  }, [totalPurchased]);
 
   const value = {
     totalPurchased,
