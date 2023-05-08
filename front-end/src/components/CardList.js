@@ -3,12 +3,12 @@ import fetchProduct from '../api/fetchProducts';
 import Card from './Card';
 import { sumItems, sumItemsValue } from '../helpers/cartFunctions';
 import stateGlobalContext from '../context/stateGlobalContext';
-import { readLocal, saveLocal } from '../helpers/localStorage';
+import { checkLocal, readLocal, saveLocal } from '../helpers/localStorage';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);
   const [carItensLocal, setCarItensLocal] = useState([]);
-  const { myArray, setMyArray } = useContext(stateGlobalContext);
+  const { setMyArray } = useContext(stateGlobalContext);
 
   useEffect(() => {
     const gettingProducts = async () => {
@@ -20,9 +20,15 @@ function CardList() {
 
   const incrementOrDecrement = (item) => {
     setCarItensLocal((prevCarItens) => {
+      let updatedState = [];
       const updatedCarItens = [...prevCarItens, item];
-      const updatedState = sumItems(updatedCarItens);
+      if (!readLocal('cartItems')) {
+        updatedState = sumItems(updatedCarItens);
+      } else {
+        updatedState = sumItems(updatedCarItens);
+      }
       console.log(carItensLocal);
+      // checkLocal('cartItems');
       setMyArray(updatedState);
       saveLocal('cartItems', updatedState);
       saveLocal('cartValue', sumItemsValue(updatedState));

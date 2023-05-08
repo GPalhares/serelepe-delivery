@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import stateGlobalContext from '../context/stateGlobalContext';
-import { sumItemsValue } from '../helpers/cartFunctions';
 import { readLocal } from '../helpers/localStorage';
 
 function ShoppingCartTotal() {
