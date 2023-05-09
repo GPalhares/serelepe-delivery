@@ -10,9 +10,10 @@ function CardList() {
   const [carItensLocal, setCarItensLocal] = useState([]);
   const { setMyArray } = useContext(stateGlobalContext);
 
+  console.log(carItensLocal);
   useEffect(() => {
     const localStorageCartItems = readLocal('cartItems');
-    if (localStorageCartItems) {
+    if (localStorageCartItems !== null) {
       setMyArray(localStorageCartItems);
       setCarItensLocal(localStorageCartItems);
     }
@@ -24,47 +25,40 @@ function CardList() {
   }, [setMyArray]);
 
   const incrementOrDecrement = (item) => {
-    let updatedState = [];
     setCarItensLocal((prevCarItens) => {
       const updatedCarItens = [...prevCarItens, item];
-      updatedState = updatedCarItens;
-
-      console.log(carItensLocal);
-
+      saveLocal('cartItems', sumItems(updatedCarItens));
+      saveLocal('cartValue', sumItemsValue(updatedCarItens));
       return updatedCarItens;
     });
-    setMyArray(updatedState);
-    saveLocal('cartItems', sumItems(updatedState));
-    saveLocal('cartValue', sumItemsValue(updatedState));
+    setMyArray((prevMyArray) => {
+      const updatedMyArray = [...prevMyArray, item];
+      return updatedMyArray;
+    });
   };
 
   return (
     <>
       <h1>Cards</h1>
       <div className="card-list">
-        {
-          productsList.map((prod, index) => {
-            const cartItem = readLocal('cartItems')?.find((item) => item.id === prod.id);
-            const quantity = cartItem?.quantity ?? 0;
-
-            return (
-              <div key={ index }>
-                <Card
-                  name={ prod.name }
-                  id={ prod.id }
-                  quantity={ quantity }
-                  price={ prod.price }
-                  urlImage={ prod.url_image }
-                  incrementOrDecrement={ incrementOrDecrement }
-                />
-              </div>
-            );
-          })
-        }
-
+        {productsList.map((prod, index) => {
+          const cartItem = readLocal('cartItems')?.find((item) => item.id === prod.id);
+          const quantity = cartItem?.quantity ?? 0;
+          return (
+            <div key={ index }>
+              <Card
+                name={ prod.name }
+                id={ prod.id }
+                quantity={ quantity }
+                price={ prod.price }
+                urlImage={ prod.url_image }
+                incrementOrDecrement={ incrementOrDecrement }
+              />
+            </div>
+          );
+        })}
       </div>
     </>
   );
 }
-
 export default CardList;
