@@ -11,30 +11,31 @@ function CardList() {
   const { setMyArray } = useContext(stateGlobalContext);
 
   useEffect(() => {
+    const localStorageCartItems = readLocal('cartItems');
+    if (localStorageCartItems) {
+      setMyArray(localStorageCartItems);
+      setCarItensLocal(localStorageCartItems);
+    }
     const gettingProducts = async () => {
       const productList = await fetchProduct();
       setProductList(productList.data);
     };
     gettingProducts();
-  }, []);
+  }, [setMyArray]);
 
   const incrementOrDecrement = (item) => {
+    let updatedState = [];
     setCarItensLocal((prevCarItens) => {
-      let updatedState = [];
       const updatedCarItens = [...prevCarItens, item];
-      if (!readLocal('cartItems')) {
-        updatedState = sumItems(updatedCarItens);
-      } else {
-        updatedState = sumItems(updatedCarItens);
-      }
+      updatedState = updatedCarItens;
+
       console.log(carItensLocal);
-      // checkLocal('cartItems');
-      setMyArray(updatedState);
-      saveLocal('cartItems', updatedState);
-      saveLocal('cartValue', sumItemsValue(updatedState));
 
       return updatedCarItens;
     });
+    setMyArray(updatedState);
+    saveLocal('cartItems', sumItems(updatedState));
+    saveLocal('cartValue', sumItemsValue(updatedState));
   };
 
   return (

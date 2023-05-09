@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 
 function Card({ name, urlImage, id, price, incrementOrDecrement, quantity }) {
   const [counter, setCounter] = useState(0);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(quantity === 0);
 
   useEffect(() => {
+    setCounter(quantity);
     setDisabled(counter === 0);
-  }, [counter]);
+  }, [counter, quantity]);
 
   return (
     <div className="card-product">
@@ -40,9 +41,7 @@ function Card({ name, urlImage, id, price, incrementOrDecrement, quantity }) {
       <input
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
-        // onChange={ handleChange }
-        min={ 0 }
-        value={ quantity }
+        value={ counter }
       />
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
