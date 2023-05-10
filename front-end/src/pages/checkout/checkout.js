@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import fetchSales from '../../api/fetchSales';
 import Header from '../../components/Header';
 import stateGlobalContext from '../../context/stateGlobalContext';
-import { readLocal } from '../../helpers/localStorage';
+import { readLocal, saveLocal } from '../../helpers/localStorage';
 import { sumItemsValue } from '../../helpers/cartFunctions';
 
 function CheckoutPage() {
@@ -15,10 +15,14 @@ function CheckoutPage() {
   const [addressNumberCheckout, setAddressNumberCheckout] = useState('');
   const history = useHistory();
 
+  useEffect(() => { setArrayLocal(readLocal('cartItems')); }, []);
+
   const deleteItem = (id) => {
     const item = myArray.filter((product) => +product.id !== +id);
     setMyArray(item);
     setArrayLocal(item);
+    saveLocal('cartItems', item);
+    saveLocal('cartValue', sumItemsValue(item));
   };
 
   useEffect(() => {
@@ -61,7 +65,7 @@ function CheckoutPage() {
             <th>Subtotal</th>
             <th>Delete Item</th>
           </tr>
-          { myArray.map((product, index) => {
+          { arrayLocal.map((product, index) => {
             const subTotal = (+(product.price) * +(product.quantity)).toFixed(2);
             const item = `customer_checkout__element-order-table-item-number-${index}`;
             const name = `customer_checkout__element-order-table-name-${index}`;

@@ -33,21 +33,28 @@ function CardList() {
     });
     setMyArray((prevMyArray) => {
       const updatedMyArray = [...prevMyArray, item];
-      return updatedMyArray;
+      return sumItems(updatedMyArray);
     });
   };
 
   const inputIncrementOrDecrement = (item) => {
-    setCarItensLocal(() => {
-      const updatedCarItens = [item];
-      saveLocal('cartItems', sumItems(updatedCarItens));
-      saveLocal('cartValue', sumItemsValue(updatedCarItens));
-      return updatedCarItens;
+    let newArray = [];
+    setCarItensLocal((prevMyArray) => {
+      newArray = prevMyArray.map((oldItem) => {
+        if (oldItem.id === item.id) {
+          return { ...oldItem, quantity: item.quantity };
+        }
+        return oldItem;
+      });
+      if (!newArray.some((oldItem) => oldItem.id === item.id)) {
+        newArray.push(item);
+      }
+      return newArray;
     });
-    setMyArray(() => {
-      const updatedMyArray = [item];
-      return updatedMyArray;
-    });
+
+    setMyArray(newArray);
+    saveLocal('cartItems', sumItems(newArray));
+    saveLocal('cartValue', sumItemsValue(newArray));
   };
 
   return (
