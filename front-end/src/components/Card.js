@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-function Card({ name, urlImage, id, price, incrementOrDecrement, quantity }) {
+function Card({ name, urlImage, id, price, incrementOrDecrement,
+  quantity, inputIncrementOrDecrement }) {
   const [counter, setCounter] = useState(0);
   const [disabled, setDisabled] = useState(quantity === 0);
 
   useEffect(() => {
     setCounter(quantity);
-    setDisabled(counter === 0);
-  }, [counter, quantity]);
+    setDisabled(quantity === 0);
+  }, [quantity]);
 
   return (
     <div className="card-product">
@@ -41,6 +42,10 @@ function Card({ name, urlImage, id, price, incrementOrDecrement, quantity }) {
       <input
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
+        onChange={ (e) => {
+          setCounter(+e.target.value);
+          inputIncrementOrDecrement({ id, name, price, quantity: +e.target.value });
+        } }
         value={ counter }
       />
       <button
@@ -63,6 +68,7 @@ Card.propTypes = {
   urlImage: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   incrementOrDecrement: PropTypes.func.isRequired,
+  inputIncrementOrDecrement: PropTypes.func.isRequired,
   price: PropTypes.shape({
     replace: PropTypes.func,
   }).isRequired,

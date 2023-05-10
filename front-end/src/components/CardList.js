@@ -37,6 +37,19 @@ function CardList() {
     });
   };
 
+  const inputIncrementOrDecrement = (item) => {
+    setCarItensLocal(() => {
+      const updatedCarItens = [item];
+      saveLocal('cartItems', sumItems(updatedCarItens));
+      saveLocal('cartValue', sumItemsValue(updatedCarItens));
+      return updatedCarItens;
+    });
+    setMyArray(() => {
+      const updatedMyArray = [item];
+      return updatedMyArray;
+    });
+  };
+
   return (
     <>
       <h1>Cards</h1>
@@ -53,6 +66,7 @@ function CardList() {
                 price={ prod.price }
                 urlImage={ prod.url_image }
                 incrementOrDecrement={ incrementOrDecrement }
+                inputIncrementOrDecrement={ inputIncrementOrDecrement }
               />
             </div>
           );

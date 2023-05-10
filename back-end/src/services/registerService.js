@@ -14,7 +14,9 @@ const userRegister = async (data) => {
   } });
 
   if (user) throw new Error('User already exist');
+
   const createdToken = createToken(name, email, role);
+
   const encryptedPassword = md5(password);
   await User.create({
     name,

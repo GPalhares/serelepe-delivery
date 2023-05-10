@@ -71,7 +71,7 @@ function CheckoutPage() {
             const remove = `customer_checkout__element-order-table-remove-${index}`;
             return (
               <tr key={ product.id }>
-                <td data-testid={ item }>{ index + 1 }</td>
+                <td data-testid={ item }>{ index }</td>
                 <td data-testid={ name }>{ product.name}</td>
                 <td data-testid={ quantity }>{ product.quantity }</td>
                 <td data-testid={ price }>
