@@ -43,8 +43,8 @@ function Card({ name, urlImage, id, price, incrementOrDecrement,
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
         onChange={ (e) => {
-          setCounter(+e.target.value);
           inputIncrementOrDecrement({ id, name, price, quantity: +e.target.value });
+          setCounter(+e.target.value);
         } }
         value={ counter }
       />

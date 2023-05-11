@@ -14,7 +14,7 @@ function CardList() {
   useEffect(() => {
     const localStorageCartItems = readLocal('cartItems');
     if (localStorageCartItems !== null) {
-      setMyArray(localStorageCartItems);
+      setMyArray(sumItems(localStorageCartItems));
       setCarItensLocal(localStorageCartItems);
     }
     const gettingProducts = async () => {
@@ -47,13 +47,15 @@ function CardList() {
         return oldItem;
       });
       if (!newArray.some((oldItem) => oldItem.id === item.id)) {
-        newArray.push(item);
+        newArray = [...newArray, item];
+        saveLocal('cartItems', newArray);
+        saveLocal('cartValue', sumItemsValue(newArray).toFixed(2));
       }
       return newArray;
     });
-
-    setMyArray(newArray);
-    saveLocal('cartItems', sumItems(newArray));
+    console.log(newArray);
+    setMyArray(sumItems(newArray));
+    saveLocal('cartItems', newArray);
     saveLocal('cartValue', sumItemsValue(newArray).toFixed(2));
   };
 
