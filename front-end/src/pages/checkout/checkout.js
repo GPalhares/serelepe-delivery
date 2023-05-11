@@ -7,7 +7,6 @@ import { readLocal, saveLocal } from '../../helpers/localStorage';
 import { sumItemsValue } from '../../helpers/cartFunctions';
 
 function CheckoutPage() {
-  // const { total, totalPurchased, setTotalPurchased } = useContext(stateGlobalContext);
   const { setMyArray, myArray } = useContext(stateGlobalContext);
   const [arrayLocal, setArrayLocal] = useState(myArray);
   const [checkoutAddress, setCheckoutAddress] = useState('');
@@ -15,14 +14,17 @@ function CheckoutPage() {
   const [addressNumberCheckout, setAddressNumberCheckout] = useState('');
   const history = useHistory();
 
-  useEffect(() => { setArrayLocal(readLocal('cartItems')); }, []);
+  useEffect(() => {
+    setArrayLocal(readLocal('cartItems'));
+    setMyArray(readLocal('cartItems'));
+  }, [setMyArray]);
 
   const deleteItem = (id) => {
     const item = myArray.filter((product) => +product.id !== +id);
     setMyArray(item);
     setArrayLocal(item);
     saveLocal('cartItems', item);
-    saveLocal('cartValue', sumItemsValue(item));
+    saveLocal('cartValue', sumItemsValue(item).toFixed(2));
   };
 
   useEffect(() => {
@@ -75,7 +77,7 @@ function CheckoutPage() {
             const remove = `customer_checkout__element-order-table-remove-${index}`;
             return (
               <tr key={ product.id }>
-                <td data-testid={ item }>{ index }</td>
+                <td data-testid={ item }>{ index + 1 }</td>
                 <td data-testid={ name }>{ product.name}</td>
                 <td data-testid={ quantity }>{ product.quantity }</td>
                 <td data-testid={ price }>
@@ -102,7 +104,7 @@ function CheckoutPage() {
       >
         Total Price: R$
         {' '}
-        { `${total.toString().replace('.', ',')}` }
+        { `${(total.toFixed(2)).toString().replace('.', ',')}` }
       </span>
       <div>
         <label htmlFor="sellerSelectCheckout">
@@ -124,7 +126,7 @@ function CheckoutPage() {
           <input
             id="checkoutAddress"
             name="checkoutAddress"
-            data-testid="ucstomer_checkout__imputaddress"
+            data-testid="customer_checkout__input-address"
             type="text"
             onChange={ ({ target }) => handleInputChange(target) }
           />

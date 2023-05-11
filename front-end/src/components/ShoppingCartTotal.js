@@ -6,7 +6,7 @@ import { sumItems } from '../helpers/cartFunctions';
 
 function ShoppingCartTotal() {
   const { myArray, setMyArray } = useContext(stateGlobalContext);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState('0.0');
   const history = useHistory();
   const [disabled, setDisabled] = useState(true);
   const localCart = readLocal('cartValue');
@@ -14,9 +14,10 @@ function ShoppingCartTotal() {
   useEffect(() => {
     if (myArray.length > 0) {
       setTotal(readLocal('cartValue'));
+      console.log(readLocal('cartValue'));
       setDisabled(false);
     } else {
-      setTotal(0);
+      setTotal('0.0');
       setDisabled(true);
     }
   }, [myArray]);
@@ -43,7 +44,8 @@ function ShoppingCartTotal() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { `${total.toFixed(2).replace('.', ',')}` }
+          {/* { `${total.replace('.', ',')}` } */}
+          {total.replace('.', ',')}
         </span>
       </button>
     </div>

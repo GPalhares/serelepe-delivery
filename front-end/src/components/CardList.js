@@ -28,7 +28,7 @@ function CardList() {
     setCarItensLocal((prevCarItens) => {
       const updatedCarItens = [...prevCarItens, item];
       saveLocal('cartItems', sumItems(updatedCarItens));
-      saveLocal('cartValue', sumItemsValue(updatedCarItens));
+      saveLocal('cartValue', sumItemsValue(updatedCarItens).toFixed(2));
       return updatedCarItens;
     });
     setMyArray((prevMyArray) => {
@@ -54,7 +54,7 @@ function CardList() {
 
     setMyArray(newArray);
     saveLocal('cartItems', sumItems(newArray));
-    saveLocal('cartValue', sumItemsValue(newArray));
+    saveLocal('cartValue', sumItemsValue(newArray).toFixed(2));
   };
 
   return (
