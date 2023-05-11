@@ -127,9 +127,10 @@ function CheckoutPage() {
           <select
             id="sellerSelect"
             data-testid="customer_checkout__select-seller"
+            onChange={ (e) => setSelectedSeller(e.target.value) }
           >
             {sellers.map((seller) => (
-              <option key={ seller.name } onChange={ () => setSelectedSeller(seller.id) }>
+              <option value={ seller.id } key={ seller.name }>
                 {seller.name}
               </option>
             ))}
