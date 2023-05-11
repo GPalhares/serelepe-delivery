@@ -1,10 +1,10 @@
 const { Sale, SalesProduct, User } = require('../database/models');
 
-const createSalesProdutcs = async (saleId, cart) => {
-  const newSalesProducts = cart.map((item) => {
+const createSalesProdutcs = async (saleId, cartItems) => {
+  const newSalesProducts = cartItems.map((item) => {
     const newRegister = SalesProduct.create({
       saleId,
-      productId: item.id,
+      productId: item.productId,
       quantity: item.quantity,
     });
 
@@ -14,7 +14,7 @@ const createSalesProdutcs = async (saleId, cart) => {
 };
 
 const createSale = async (data) => {
-  const { cart, totalPrice, sellerId, deliveryAddress, deliveryNumber, userEmail } = data;
+  const { cartItems, totalPrice, sellerId, deliveryAddress, deliveryNumber, userEmail } = data;
 
   const getUser = await User.findOne({ where: { email: userEmail } });
 
@@ -27,7 +27,7 @@ const createSale = async (data) => {
     status: 'Pendente',
   });
   
-  await createSalesProdutcs(newSale.id, cart);
+  await createSalesProdutcs(newSale.id, cartItems);
 
   return newSale.id;
 };

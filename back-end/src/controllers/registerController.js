@@ -10,6 +10,16 @@ const userRegister = async (req, res, next) => {
   }
 };
 
+const getSeller = async (req, res, next) => {
+  try {
+    const allSellers = await registerService.getSellers();
+    return res.status(200).json(allSellers);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   userRegister,
+  getSeller,
 };
