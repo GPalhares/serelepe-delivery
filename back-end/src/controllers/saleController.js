@@ -1,7 +1,6 @@
 const saleService = require('../services/saleService');
 
 const createSale = async (req, res, next) => {
-  console.log(req.body);
   try {
     const saleId = await saleService.createSale(req.body);
     return res.status(201).json({ saleId });
@@ -20,9 +19,9 @@ const getAllSales = async (_req, res, next) => {
 };
 
 const updateSale = async (req, res, next) => {
+  const { id } = req.params;
   try {
-    const { saleId, status } = req.body;
-    const result = await saleService.updateSale(saleId, status);
+    const result = await saleService.updateSale(id, 'Entregue');
     return res.status(200).json(result);
   } catch (error) {
     next(error);

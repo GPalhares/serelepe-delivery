@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { readLocal } from '../helpers/localStorage';
-import fetchCardOrder from '../api/fethCardOrder';
+import fetchCardOrder from '../api/fetchCardDetail';
+import fetchGetUserId from '../api/fetchGetUserId';
 
 function CardOrder() {
-  const params = useParams();
   const [orders, setOrders] = useState([]);
 
   const addingZero = (num) => {
@@ -79,12 +79,13 @@ function CardOrder() {
   useEffect(() => {
     const fetchData = async () => {
       const user = readLocal('user');
-      const { data } = await fetchCardOrder(user.token, params.id);
+      const userId = await fetchGetUserId({ userEmail: user.email });
+      const { data } = await fetchCardOrder(user.token, userId);
 
       setOrders(data);
     };
     fetchData();
-  }, [params.id]);
+  }, []);
 
   const renderingCardOrders = () => {
     if (orders.length !== 0 || orders !== undefined) {

@@ -20,8 +20,8 @@ function App() {
         <Route exact path="/login" component={ LoginPage } />
         <Route exact path="/customer/products" component={ ProductsPage } />
         <Route exact path="/customer/checkout" component={ CheckoutPage } />
-        <Route exact path="/customer/orders/:id" component={ OrderDetails } />
         <Route exact path="/customer/orders/" component={ OrdersPage } />
+        <Route exact path="/customer/orders/:id" component={ OrderDetails } />
         <Route exact path="/register" component={ RegisterPage } />
       </Switch>
     </stateGlobalContext.Provider>

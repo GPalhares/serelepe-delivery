@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { readLocal } from '../helpers/localStorage';
-import fetchCardDetails from '../api/fethCardOrder';
+import fetchCardDetails from '../api/fetchCardDetail';
+import fetchChangeStatus from '../api/fetchChangeStatus';
 import fetchSellers from '../api/fetchSellers';
 
 function CardDetails() {
   const params = useParams();
   const [orders, setOrders] = useState([]);
-  const [seller, setSeller] = useState([]);
+  const [seller, setSeller] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [date, setDate] = useState([]);
+  const [status, setStatus] = useState('');
 
   const addingZero = (num) => {
     let zeroPlusNumber = String(num);
@@ -22,8 +26,8 @@ function CardDetails() {
     return zeroPlusNumber;
   };
 
-  const dateConverter = (date) => {
-    const currentDate = new Date(date);
+  const dateConverter = (d) => {
+    const currentDate = new Date(d);
     const sliceNumber = -2;
     const day = (`0${currentDate.getDate()}`).slice(sliceNumber);
     const month = (`0${currentDate.getMonth() + 1}`).slice(sliceNumber);
@@ -35,37 +39,39 @@ function CardDetails() {
     const brlCurrency = currency.toString().replace('.', ',');
     return `R$ ${brlCurrency}`;
   };
+  const dataTestidStatus = `customer_order_details__element-order
+  -details-label-delivery-status${params.id}`;
+  const dataTestidDate = 'customer_order_details__element-order-details-label-order-date';
+  const saleTestid = 'customer_order_details__element-order-details-label-order-id';
+  const sellerNameTestid = `customer_order_details__element-order-
+  details-label-seller-name`;
+  const totalPriceTestId = 'customer_order_details__element-order-total-price';
 
-  const dataTestid = 'customer_orders__element-order-id-';
-  const dataTestidStatus = 'customer_orders__element-delivery-status-';
-  const dataTestidDate = 'customer_orders__element-order-date-';
-  const dataTestidPrice = 'customer_orders__element-card-price-';
-
-  const cardProducts = (obj) => {
+  const cardProducts = (obj, i) => {
     const { id, subTotal, name, unitPrice, quantity } = obj;
     return (
       <>
-        <p>
+        <p data-testid={ `customer_order_details__element-order-table-item-number-${i}` }>
           {' '}
           ID :
           {id}
         </p>
-        <p>
+        <p data-testid={ `customer_order_details__element-order-table-name-${i}` }>
           Nome :
           {' '}
           {name}
         </p>
-        <p>
+        <p data-testid={ `customer_order_details__element-order-table-quantity-${i}` }>
           Quantidade :
           {' '}
           {quantity}
         </p>
-        <p>
+        <p data-testid={ `customer_order_details__element-order-table-unit-price-${i}` }>
           Unit price:
           {' '}
           {priceConverter(unitPrice)}
         </p>
-        <p>
+        <p data-testid={ `customer_order_details__element-order-table-sub-total-${i}` }>
           SubTotal:
           {priceConverter(subTotal)}
         </p>
@@ -74,31 +80,43 @@ function CardDetails() {
     );
   };
 
+  const fetchStatus = async () => {
+    const user = readLocal('user');
+    await fetchChangeStatus(user.token, params.id);
+    const { data } = await fetchCardDetails(user.token, params.id);
+    setOrders(data);
+    setStatus(data[0].sale.status);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const user = readLocal('user');
       const { data } = await fetchCardDetails(user.token, params.id);
       const allSellers = await fetchSellers();
-
       setOrders(data);
-      setSeller(allSellers.find((s) => s.id === orders[0].sale.sellerId).name);
+      if (data.length > 0) {
+        setTotalPrice(priceConverter(data[0].sale.totalPrice));
+        setStatus(data[0].sale.status);
+        setDate(dateConverter(data[0].sale.saleDate));
+        setSeller(allSellers.find((s) => s.id === data[0].sale.sellerId).name);
+      }
     };
 
     fetchData();
-  }, [params.id, orders]);
+  }, [params.id]);
 
   const renderingProducts = () => {
     if (orders.length !== 0 || orders !== undefined) {
       return (
-        orders.map((item) => {
+        orders.map((item, i) => {
           const obj = {
             id: item.productId,
             name: item.product.name,
             unitPrice: item.product.price,
             quantity: item.quantity,
-            subTotal: item.product.price * item.quantity,
+            subTotal: (item.product.price * item.quantity).toFixed(2),
           };
-          return <div key={ item.id }>{ cardProducts(obj)}</div>;
+          return <div key={ item.id }>{ cardProducts(obj, i)}</div>;
         })
       );
     }
@@ -107,16 +125,31 @@ function CardDetails() {
   return (
     <>
       <div>
-        <h1>
+        <h1 data-testid={ saleTestid }>
           Order:
           {' '}
           {addingZero(params.id)}
         </h1>
-        <h1>
+        <h1 data-testid={ sellerNameTestid }>
           Seller:
           {' '}
           {seller}
         </h1>
+        <h1 data-testid={ dataTestidDate }>
+          SaleDate:
+          {' '}
+          {date}
+        </h1>
+        <h1 data-testid={ dataTestidStatus }>
+          Status:
+          {' '}
+          {status}
+        </h1>
+        <h1 data-testid={ totalPriceTestId }>
+          Total Price:
+          {totalPrice}
+        </h1>
+        <button onClick={ fetchStatus } type="button">Change to Delivered</button>
       </div>
 
       { renderingProducts() }
