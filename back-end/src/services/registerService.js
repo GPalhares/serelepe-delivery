@@ -29,13 +29,14 @@ const userRegister = async (data) => {
 };
 
 const getSellers = async () => {
- const seller = await
-   User.findAll({ where: { role: 'seller' } }); 
-   const sellersInfo = seller.reduce((acc, curr) => {
-     const { name, id } = curr.dataValues; 
-     return [...acc, { name, id }];
-}, []);
-return sellersInfo;
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+  const sellersInfo = sellers.reduce((acc, curr) => {
+    const { name, id } = curr.dataValues;
+
+    return [...acc, { id, name }];
+  }, []);
+
+  return sellersInfo;
 };
 
 module.exports = {

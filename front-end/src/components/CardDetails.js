@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { readLocal } from '../helpers/localStorage';
-import fetchCardOrder from '../api/fethCardOrder';
+import fetchCardDetails from '../api/fethCardOrder';
+import fetchSellers from '../api/fetchSellers';
 
-function CardOrder() {
+function CardDetails() {
   const params = useParams();
   const [orders, setOrders] = useState([]);
+  const [seller, setSeller] = useState([]);
 
   const addingZero = (num) => {
     let zeroPlusNumber = String(num);
@@ -39,74 +41,87 @@ function CardOrder() {
   const dataTestidDate = 'customer_orders__element-order-date-';
   const dataTestidPrice = 'customer_orders__element-card-price-';
 
-  const card = (obj) => {
-    const { id, status, saleDate, total } = obj;
+  const cardProducts = (obj) => {
+    const { id, subTotal, name, unitPrice, quantity } = obj;
     return (
-      <div key={ id }>
-        <Link to={ `/customer/orders/${id}` }>
-          <p data-testid={ `${dataTestid}-${id}` }>
-            Order:
-            {' '}
-            { addingZero(id) }
-          </p>
+      <>
+        <p>
+          {' '}
+          ID :
+          {id}
+        </p>
+        <p>
+          Nome :
+          {' '}
+          {name}
+        </p>
+        <p>
+          Quantidade :
+          {' '}
+          {quantity}
+        </p>
+        <p>
+          Unit price:
+          {' '}
+          {priceConverter(unitPrice)}
+        </p>
+        <p>
+          SubTotal:
+          {priceConverter(subTotal)}
+        </p>
+      </>
 
-          <p data-testid={ `${dataTestidStatus}-${id}` }>
-            Status:
-            {' '}
-            { status }
-          </p>
-
-          <p>
-            Date:
-            {' '}
-            <span
-              data-testid={ `${dataTestidDate}-${id}` }
-            >
-              { dateConverter(saleDate) }
-            </span>
-          </p>
-
-          <p data-testid={ `${dataTestidPrice}-${id}` }>
-            Total Price:
-            {' '}
-            { priceConverter(total) }
-          </p>
-        </Link>
-      </div>
     );
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const user = readLocal('user');
-      const { data } = await fetchCardOrder(user.token, params.id);
+      const { data } = await fetchCardDetails(user.token, params.id);
+      const allSellers = await fetchSellers();
 
       setOrders(data);
+      setSeller(allSellers.find((s) => s.id === orders[0].sale.sellerId).name);
     };
-    fetchData();
-  }, [params.id]);
 
-  const renderingCardOrders = () => {
+    fetchData();
+  }, [params.id, orders]);
+
+  const renderingProducts = () => {
     if (orders.length !== 0 || orders !== undefined) {
       return (
         orders.map((item) => {
           const obj = {
-            id: item.product.id,
-            status: item.sale.status,
-            saleDate: item.sale.saleDate,
-            total: item.sale.totalPrice,
+            id: item.productId,
+            name: item.product.name,
+            unitPrice: item.product.price,
+            quantity: item.quantity,
+            subTotal: item.product.price * item.quantity,
           };
-          return card(obj);
+          return <div key={ item.id }>{ cardProducts(obj)}</div>;
         })
       );
     }
   };
 
   return (
-    <div>
-      { renderingCardOrders() }
-    </div>
+    <>
+      <div>
+        <h1>
+          Order:
+          {' '}
+          {addingZero(params.id)}
+        </h1>
+        <h1>
+          Seller:
+          {' '}
+          {seller}
+        </h1>
+      </div>
+
+      { renderingProducts() }
+    </>
   );
 }
 
-export default CardOrder;
+export default CardDetails;

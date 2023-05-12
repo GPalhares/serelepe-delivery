@@ -7,6 +7,7 @@ import RegisterPage from './pages/register/register';
 import ProductsPage from './pages/products/products';
 import CheckoutPage from './pages/checkout/checkout';
 import OrdersPage from './pages/orders/orders';
+import OrderDetails from './pages/orders/orderDetails';
 import stateGlobalContext from './context/stateGlobalContext';
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
         <Route exact path="/login" component={ LoginPage } />
         <Route exact path="/customer/products" component={ ProductsPage } />
         <Route exact path="/customer/checkout" component={ CheckoutPage } />
-        <Route exact path="/customer/orders" component={ OrdersPage } />
+        <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+        <Route exact path="/customer/orders/" component={ OrdersPage } />
         <Route exact path="/register" component={ RegisterPage } />
       </Switch>
     </stateGlobalContext.Provider>

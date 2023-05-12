@@ -11,7 +11,7 @@ function CheckoutPage() {
   const { setMyArray, myArray } = useContext(stateGlobalContext);
   const [arrayLocal, setArrayLocal] = useState(myArray);
   const [sellers, setSellers] = useState([]);
-  const [selectedSeller, setSelectedSeller] = useState(1);
+  const [selectedSeller, setSelectedSeller] = useState(2);
   const [checkoutAddress, setCheckoutAddress] = useState('');
   const [total, setTotal] = useState(sumItemsValue(arrayLocal));
   const [addressNumberCheckout, setAddressNumberCheckout] = useState('');

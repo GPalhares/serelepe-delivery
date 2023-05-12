@@ -10,10 +10,10 @@ const userRegister = async (req, res, next) => {
   }
 };
 
-const getSeller = async (req, res, next) => {
+const getSellers = async (_req, res, next) => {
   try {
-    const allSellers = await registerService.getSellers();
-    return res.status(200).json(allSellers);
+    const sellers = await registerService.getSellers();
+    return res.status(200).json(sellers);
   } catch (error) {
     next(error);
   }
@@ -21,5 +21,5 @@ const getSeller = async (req, res, next) => {
 
 module.exports = {
   userRegister,
-  getSeller,
+  getSellers,
 };
