@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { readLocal } from '../helpers/localStorage';
-import fetchCardOrder from '../api/fetchCardDetail';
 import fetchGetUserId from '../api/fetchGetUserId';
+import fetchSalesByRoleId from '../api/fetchGetSalesByRoleId';
 
 function CardOrder() {
   const [orders, setOrders] = useState([]);
@@ -20,15 +20,6 @@ function CardOrder() {
     return zeroPlusNumber;
   };
 
-  const dateConverter = (date) => {
-    const currentDate = new Date(date);
-    const sliceNumber = -2;
-    const day = (`0${currentDate.getDate()}`).slice(sliceNumber);
-    const month = (`0${currentDate.getMonth() + 1}`).slice(sliceNumber);
-    const result = `${day}/${month}/${currentDate.getFullYear()}`;
-    return result;
-  };
-
   const priceConverter = (currency) => {
     const brlCurrency = currency.toString().replace('.', ',');
     return `R$ ${brlCurrency}`;
@@ -39,18 +30,22 @@ function CardOrder() {
   const dataTestidDate = 'customer_orders__element-order-date-';
   const dataTestidPrice = 'customer_orders__element-card-price-';
 
-  const card = (obj) => {
-    const { id, status, saleDate, total } = obj;
+  const card = (ords) => {
+    const { saleId } = ords;
+    const { date } = ords;
+    const { status } = ords;
+    const total = ords.value;
+
     return (
-      <div key={ id }>
-        <Link to={ `/customer/orders/${id}` }>
-          <p data-testid={ `${dataTestid}-${id}` }>
+      <div key={ saleId }>
+        <Link to={ `/customer/orders/${saleId}` }>
+          <p data-testid={ `${dataTestid}-${saleId}` }>
             Order:
             {' '}
-            { addingZero(id) }
+            { addingZero(saleId) }
           </p>
 
-          <p data-testid={ `${dataTestidStatus}-${id}` }>
+          <p data-testid={ `${dataTestidStatus}-${saleId}` }>
             Status:
             {' '}
             { status }
@@ -60,13 +55,13 @@ function CardOrder() {
             Date:
             {' '}
             <span
-              data-testid={ `${dataTestidDate}-${id}` }
+              data-testid={ `${dataTestidDate}-${saleId}` }
             >
-              { dateConverter(saleDate) }
+              { date }
             </span>
           </p>
 
-          <p data-testid={ `${dataTestidPrice}-${id}` }>
+          <p data-testid={ `${dataTestidPrice}-${saleId}` }>
             Total Price:
             {' '}
             { priceConverter(total) }
@@ -79,27 +74,47 @@ function CardOrder() {
   useEffect(() => {
     const fetchData = async () => {
       const user = readLocal('user');
-      const userId = await fetchGetUserId({ userEmail: user.email });
-      const { data } = await fetchCardOrder(user.token, userId);
-
+      const userDatabase = await fetchGetUserId({ userEmail: user.email });
+      const userId = userDatabase.data.userId.id;
+      const { data } = await fetchSalesByRoleId(user.token, { id: userId,
+        role: 'userId' });
       setOrders(data);
     };
     fetchData();
   }, []);
 
   const renderingCardOrders = () => {
-    if (orders.length !== 0 || orders !== undefined) {
-      return (
-        orders.map((item) => {
-          const obj = {
-            id: item.product.id,
+    if (Array.isArray(orders) && orders.length !== 0) {
+      const groupedOrders = {};
+      orders.forEach((item) => {
+        if (!groupedOrders[item.saleId]) {
+          groupedOrders[item.saleId] = {
+            id: item.saleId,
             status: item.sale.status,
             saleDate: item.sale.saleDate,
             total: item.sale.totalPrice,
+            products: [],
           };
-          return card(obj);
-        })
-      );
+        }
+        groupedOrders[item.saleId].products.push({
+          name: item.product.name,
+          price: item.product.price,
+          quantity: item.quantity,
+        });
+      });
+
+      return Object.values(groupedOrders).map((order) => {
+        const total = order.products.reduce(
+          (acc, product) => acc + product.price * product.quantity,
+          0,
+        );
+        return card({
+          saleId: order.id,
+          value: total.toFixed(2),
+          date: new Date(order.saleDate).toLocaleDateString(),
+          status: order.status,
+        });
+      });
     }
   };
 

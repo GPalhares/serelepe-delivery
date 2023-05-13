@@ -39,9 +39,21 @@ const detailedSale = async (req, res, next) => {
   }
 };
 
+const salesByRoleId = async (req, res, next) => {
+  try {
+    const { id, role } = req.body;
+
+    const result = await saleService.salesByRoleId(id, role);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createSale,
   getAllSales,
   updateSale,
   detailedSale,
+  salesByRoleId,
 };

@@ -65,9 +65,29 @@ const detailedSale = async (saleId) => {
   return saleDatails;
 };
 
+const salesByRoleId = async (id, role) => {
+  const saleDetails = await SalesProduct.findAll({
+    include: [
+      {
+        model: Product,
+        as: 'product',
+        attributes: ['id', 'name', 'price'],
+      },
+      {
+        model: Sale,
+        as: 'sale',
+        where: { [role]: id },
+        attributes: { exclude: ['id'] },
+      },
+    ],
+  });
+  return saleDetails;
+};
+
 module.exports = {
   createSale,
   getAllSales,
   updateSale,
   detailedSale,
+  salesByRoleId,
 };

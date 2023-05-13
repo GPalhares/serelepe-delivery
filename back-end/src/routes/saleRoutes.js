@@ -3,7 +3,7 @@ const saleController = require('../controllers/saleController');
 
 const routes = Router();
 
-routes.get('/', saleController.getAllSales);
+routes.post('/byroleid', saleController.salesByRoleId);
 routes.get('/:id', saleController.detailedSale);
 routes.post('/', saleController.createSale);
 routes.put('/:id', saleController.updateSale);
