@@ -101,9 +101,10 @@ function CardDetails() {
     };
     if (status === 'Entregue') {
       setDisabled('[disabled]');
+      console.log(disabled);
     }
     fetchData();
-  }, [params.id, status]);
+  }, [params.id, status, disabled]);
 
   const renderingProducts = () => {
     if (orders.length !== 0 || orders !== undefined) {
