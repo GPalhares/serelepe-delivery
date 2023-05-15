@@ -37,12 +37,23 @@ function LoginPage() {
     }
     setInvalidLogin(false);
     saveLocal('user', { ...dataResult.data });
-    history.push('/customer/products');
+
+    if (readLocal('user').role === 'customer') {
+      history.push('/customer/products');
+    }
+    if (readLocal('user').role === 'seller') {
+      history.push('/seller/orders');
+    }
   };
 
   useEffect(() => {
     if (readLocal('user')) {
-      history.push('/customer/products');
+      if (readLocal('user').role === 'customer') {
+        history.push('/customer/products');
+      }
+      if (readLocal('user').role === 'seller') {
+        history.push('/seller/orders');
+      }
     }
   }, [history]);
 

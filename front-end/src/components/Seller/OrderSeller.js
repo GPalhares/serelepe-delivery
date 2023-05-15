@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { readLocal } from '../helpers/localStorage';
-import fetchGetUserId from '../api/fetchGetUserId';
-import fetchSalesByRoleId from '../api/fetchGetSalesByRoleId';
-import { dateConverter } from '../helpers/cartFunctions';
+import { readLocal } from '../../helpers/localStorage';
+import fetchSalesByRoleId from '../../api/fetchGetSalesByRoleId';
+import fetchGetUserId from '../../api/fetchGetUserId';
 
-function CardOrder() {
+function OrderSeller() {
   const [orders, setOrders] = useState([]);
 
   const addingZero = (num) => {
@@ -17,8 +16,16 @@ function CardOrder() {
       zeroPlusNumber = `0${zeroPlusNumber}`;
       counter += 1;
     }
-
     return zeroPlusNumber;
+  };
+
+  const dateConverter = (d) => {
+    const currentDate = new Date(d);
+    const sliceNumber = -2;
+    const day = (`0${currentDate.getDate()}`).slice(sliceNumber);
+    const month = (`0${currentDate.getMonth() + 1}`).slice(sliceNumber);
+    const result = `${day}/${month}/${currentDate.getFullYear()}`;
+    return result;
   };
 
   const priceConverter = (currency) => {
@@ -26,27 +33,26 @@ function CardOrder() {
     return `R$ ${brlCurrency}`;
   };
 
-  const dataTestid = 'customer_orders__element-order-id-';
-  const dataTestidStatus = 'customer_orders__element-delivery-status-';
-  const dataTestidDate = 'customer_orders__element-order-date-';
-  const dataTestidPrice = 'customer_orders__element-card-price-';
+  const dataTestId = 'seller_orders__element-order-id-';
+  const dataTestIdStatus = 'seller_orders__element-delivery-status-';
+  const dataTestIdDate = 'seller_orders__element-order-date-';
+  const dataTestIdPrice = 'seller_orders__element-card-price-';
+  const dataTestIdAddress = 'seller_orders__element-card-address-';
 
   const card = (ords) => {
-    const { saleId } = ords;
+    const { saleId, status, deliveryAddress } = ords;
     const { date } = ords;
-    const { status } = ords;
     const total = ords.value;
-
     return (
       <div key={ saleId }>
-        <Link to={ `/customer/orders/${saleId}` }>
-          <p data-testid={ `${dataTestid}${saleId}` }>
+        <Link to={ `/seller/orders/${saleId}` }>
+          <p data-testid={ `${dataTestId}-${saleId}` }>
             Order:
             {' '}
             { addingZero(saleId) }
           </p>
 
-          <p data-testid={ `${dataTestidStatus}${saleId}` }>
+          <p data-testid={ `${dataTestIdStatus}-${saleId}` }>
             Status:
             {' '}
             { status }
@@ -56,16 +62,22 @@ function CardOrder() {
             Date:
             {' '}
             <span
-              data-testid={ `${dataTestidDate}${saleId}` }
+              data-testid={ `${dataTestIdDate}-${saleId}` }
             >
-              { date }
+              { dateConverter(date) }
             </span>
           </p>
 
-          <p data-testid={ `${dataTestidPrice}${saleId}` }>
+          <p data-tesid={ `${dataTestIdPrice}-${saleId}` }>
             Total Price:
             {' '}
             { priceConverter(total) }
+          </p>
+
+          <p data-testid={ `${dataTestIdAddress}-${saleId}` }>
+            Address:
+            {' '}
+            { deliveryAddress }
           </p>
         </Link>
       </div>
@@ -75,10 +87,10 @@ function CardOrder() {
   useEffect(() => {
     const fetchData = async () => {
       const user = readLocal('user');
-      const userDatabase = await fetchGetUserId({ userEmail: user.email });
-      const userId = userDatabase.data.userId.id;
-      const { data } = await fetchSalesByRoleId(user.token, { id: userId,
-        role: 'userId' });
+      const sellerDatabase = await fetchGetUserId({ userEmail: user.email });
+      const sellerId = sellerDatabase.data.userId.id;
+      const { data } = await fetchSalesByRoleId(user.token, { id: sellerId,
+        role: 'sellerId' });
       setOrders(data);
     };
     fetchData();
@@ -94,6 +106,7 @@ function CardOrder() {
             status: item.sale.status,
             saleDate: item.sale.saleDate,
             total: item.sale.totalPrice,
+            deliveryAddress: item.sale.deliveryAddress,
             products: [],
           };
         }
@@ -101,6 +114,7 @@ function CardOrder() {
           name: item.product.name,
           price: item.product.price,
           quantity: item.quantity,
+          deliveryAddress: item.sale.deliveryAddress,
         });
       });
 
@@ -112,8 +126,9 @@ function CardOrder() {
         return card({
           saleId: order.id,
           value: total.toFixed(2),
-          date: dateConverter(order.saleDate),
+          date: new Date(order.saleDate).toLocaleDateString(),
           status: order.status,
+          deliveryAddress: order.deliveryAddress,
         });
       });
     }
@@ -126,4 +141,4 @@ function CardOrder() {
   );
 }
 
-export default CardOrder;
+export default OrderSeller;

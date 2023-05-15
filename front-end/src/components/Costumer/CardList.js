@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
-import fetchProduct from '../api/fetchProducts';
+import fetchProduct from '../../api/fetchProducts';
 import Card from './Card';
-import { sumItems, sumItemsValue } from '../helpers/cartFunctions';
-import stateGlobalContext from '../context/stateGlobalContext';
-import { readLocal, saveLocal } from '../helpers/localStorage';
+import { sumItems, sumItemsValue } from '../../helpers/cartFunctions';
+import stateGlobalContext from '../../context/stateGlobalContext';
+import { readLocal, saveLocal } from '../../helpers/localStorage';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);

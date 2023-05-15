@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import stateGlobalContext from '../context/stateGlobalContext';
-import { readLocal } from '../helpers/localStorage';
-import { sumItems } from '../helpers/cartFunctions';
+import stateGlobalContext from '../../context/stateGlobalContext';
+import { readLocal } from '../../helpers/localStorage';
+import { sumItems } from '../../helpers/cartFunctions';
 
 function ShoppingCartTotal() {
   const { myArray, setMyArray } = useContext(stateGlobalContext);

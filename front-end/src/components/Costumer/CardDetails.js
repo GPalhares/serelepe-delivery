@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { readLocal } from '../helpers/localStorage';
-import fetchCardDetails from '../api/fetchCardDetail';
-import fetchChangeStatus from '../api/fetchChangeStatus';
-import fetchSellers from '../api/fetchSellers';
+import { readLocal } from '../../helpers/localStorage';
+import fetchCardDetails from '../../api/fetchCardDetail';
+import fetchChangeStatus from '../../api/fetchChangeStatus';
+import fetchSellers from '../../api/fetchSellers';
 
 function CardDetails() {
   const params = useParams();
