@@ -12,21 +12,11 @@ function ShoppingCartTotal() {
   const localCart = readLocal('cartValue');
 
   useEffect(() => {
-    if (myArray.length > 0) {
+    if (myArray.length > 0 && readLocal('cartValue')) {
       setTotal(readLocal('cartValue'));
-      console.log(readLocal('cartValue'));
       setDisabled(false);
-    } else {
-      setTotal('0.0');
-      setDisabled(true);
     }
-  }, [myArray]);
-
-  useEffect(() => {
-    if (readLocal('cartValue')) {
-      setTotal(readLocal('cartValue'));
-    }
-  }, [localCart]);
+  }, [myArray, localCart]);
 
   return (
     <div>
@@ -44,7 +34,6 @@ function ShoppingCartTotal() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          {/* { `${total.replace('.', ',')}` } */}
           {total.replace('.', ',')}
         </span>
       </button>

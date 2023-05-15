@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetchLogin from '../../api/fetchLogin';
-import { saveLocal } from '../../helpers/localStorage';
+import { saveLocal, readLocal } from '../../helpers/localStorage';
 
 function LoginPage() {
   const history = useHistory();
@@ -39,6 +39,12 @@ function LoginPage() {
     saveLocal('user', { ...dataResult.data });
     history.push('/customer/products');
   };
+
+  useEffect(() => {
+    if (readLocal('user')) {
+      history.push('/customer/products');
+    }
+  }, [history]);
 
   return (
     <div>

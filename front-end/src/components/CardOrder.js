@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { readLocal } from '../helpers/localStorage';
 import fetchGetUserId from '../api/fetchGetUserId';
 import fetchSalesByRoleId from '../api/fetchGetSalesByRoleId';
+import { dateConverter } from '../helpers/cartFunctions';
 
 function CardOrder() {
   const [orders, setOrders] = useState([]);
@@ -39,13 +40,13 @@ function CardOrder() {
     return (
       <div key={ saleId }>
         <Link to={ `/customer/orders/${saleId}` }>
-          <p data-testid={ `${dataTestid}-${saleId}` }>
+          <p data-testid={ `${dataTestid}${saleId}` }>
             Order:
             {' '}
             { addingZero(saleId) }
           </p>
 
-          <p data-testid={ `${dataTestidStatus}-${saleId}` }>
+          <p data-testid={ `${dataTestidStatus}${saleId}` }>
             Status:
             {' '}
             { status }
@@ -55,13 +56,13 @@ function CardOrder() {
             Date:
             {' '}
             <span
-              data-testid={ `${dataTestidDate}-${saleId}` }
+              data-testid={ `${dataTestidDate}${saleId}` }
             >
               { date }
             </span>
           </p>
 
-          <p data-testid={ `${dataTestidPrice}-${saleId}` }>
+          <p data-testid={ `${dataTestidPrice}${saleId}` }>
             Total Price:
             {' '}
             { priceConverter(total) }
@@ -111,7 +112,7 @@ function CardOrder() {
         return card({
           saleId: order.id,
           value: total.toFixed(2),
-          date: new Date(order.saleDate).toLocaleDateString(),
+          date: dateConverter(order.saleDate),
           status: order.status,
         });
       });
