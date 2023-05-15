@@ -87,7 +87,7 @@ function OrderDetailSeller() {
         { addingZero(params.id) }
       </p>
       <p
-        data-testid="seller)order_details__element-order-details-label-order-date"
+        data-testid="seller_order_details__element-order-details-label-order-date"
       >
         Date:
         {' '}
@@ -102,7 +102,7 @@ function OrderDetailSeller() {
       </p>
       <button
         data-testid="seller_order_details__button-preparing-check"
-        disabled
+        disabled={ false }
         onClick={ preparingDelivery }
         type="button"
       >
@@ -152,7 +152,7 @@ function OrderDetailSeller() {
         Total:
         {' '}
         <span
-          data-testid="seller_order_details__elment-order-total-price"
+          data-testid="seller_order_details__element-order-total-price"
         >
           { `${priceConverter(totalPrice)}` }
         </span>
