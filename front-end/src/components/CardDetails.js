@@ -12,6 +12,7 @@ function CardDetails() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [date, setDate] = useState([]);
   const [status, setStatus] = useState('');
+  const [disabled, setDisabled] = useState('');
 
   const addingZero = (num) => {
     let zeroPlusNumber = String(num);
@@ -39,12 +40,9 @@ function CardDetails() {
     const brlCurrency = currency.toString().replace('.', ',');
     return `R$ ${brlCurrency}`;
   };
-  const dataTestidStatus = `customer_order_details__element-order
-  -details-label-delivery-status${params.id}`;
+  const dataTestidStatus = 'element-order-details-label-delivery-status';
   const dataTestidDate = 'customer_order_details__element-order-details-label-order-date';
   const saleTestid = 'customer_order_details__element-order-details-label-order-id';
-  const sellerNameTestid = `customer_order_details__element-order-
-  details-label-seller-name`;
   const totalPriceTestId = 'customer_order_details__element-order-total-price';
 
   const cardProducts = (obj, i) => {
@@ -101,9 +99,11 @@ function CardDetails() {
         setSeller(allSellers.find((s) => s.id === data[0].sale.sellerId).name);
       }
     };
-
+    if (status === 'Entregue') {
+      setDisabled('[disabled]');
+    }
     fetchData();
-  }, [params.id]);
+  }, [params.id, status]);
 
   const renderingProducts = () => {
     if (orders.length !== 0 || orders !== undefined) {
@@ -130,7 +130,9 @@ function CardDetails() {
           {' '}
           {addingZero(params.id)}
         </h1>
-        <h1 data-testid={ sellerNameTestid }>
+        <h1
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
           Seller:
           {' '}
           {seller}
@@ -140,7 +142,7 @@ function CardDetails() {
           {' '}
           {date}
         </h1>
-        <h1 data-testid={ dataTestidStatus }>
+        <h1 data-testid={ `customer_order_details__${dataTestidStatus}` }>
           Status:
           {' '}
           {status}
@@ -149,7 +151,15 @@ function CardDetails() {
           Total Price:
           {totalPrice}
         </h1>
-        <button onClick={ fetchStatus } type="button">Change to Delivered</button>
+        <button
+          onClick={ fetchStatus }
+          type="button"
+          disabled
+          data-testid="customer_order_details__button-delivery-check"
+        >
+          Change to Delivered
+
+        </button>
       </div>
 
       { renderingProducts() }
