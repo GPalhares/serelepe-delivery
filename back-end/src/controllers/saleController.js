@@ -20,8 +20,9 @@ const getAllSales = async (_req, res, next) => {
 
 const updateSale = async (req, res, next) => {
   const { id } = req.params;
+  const { status } = req.body;
   try {
-    const result = await saleService.updateSale(id, 'Entregue');
+    const result = await saleService.updateSale(id, status);
     return res.status(200).json(result);
   } catch (error) {
     next(error);

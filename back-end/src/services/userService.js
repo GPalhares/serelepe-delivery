@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User } = require('../database/models');
 
 const getUserId = async (data) => {
@@ -5,4 +6,13 @@ const getUserId = async (data) => {
     const getUser = await User.findOne({ where: { email: userEmail } });
     return getUser;
 };
-module.exports = { getUserId };
+
+const getAllUsers = async () => User.findAll({ 
+    where: { 
+      role: { [Op.not]: 'administrator' },
+    },
+    attributes: { exclude: ['password'] },
+  });
+  
+  const deleteUser = async (id) => User.destroy({ where: { id } });
+module.exports = { getUserId, getAllUsers, deleteUser };
