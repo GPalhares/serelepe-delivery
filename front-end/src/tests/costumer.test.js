@@ -3,7 +3,7 @@
 // import { MemoryRouter } from 'react-router-dom';
 // import LoginPage from '../pages/login/login';
 // import fetchLogin from './mocks/costumer/users.mock';
-
+// fix test
 // jest.mock('../../api/fetchLogin');
 
 // describe('LoginPage', () => {
