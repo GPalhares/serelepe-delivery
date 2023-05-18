@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import fetchCreatingUser from '../../api/fetchCreatingUser';
+import fetchCreatingUserAdmin from '../../api/fetchCreatingUserAdmin';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal } from '../../helpers/localStorage';
 
@@ -32,7 +32,8 @@ function AdminRegister() {
   const handleClick = async (event) => {
     event.preventDefault();
     const user = readLocal('user');
-    const response = await fetchCreatingUser(user.token, { name, email, password, role });
+    const response = await fetchCreatingUserAdmin(user
+      .token, { name, email, password, role });
     const statusCode = 409;
     if (response.status === statusCode) {
       setIsThereAnUser(true);
