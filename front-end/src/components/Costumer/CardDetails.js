@@ -120,7 +120,7 @@ function CardDetails() {
             quantity: item.quantity,
             subTotal: (item.product.price * item.quantity).toFixed(2),
           };
-          return <div key={ item.id }>{ cardProducts(obj, i)}</div>;
+          return <div key={ i }>{ cardProducts(obj, i)}</div>;
         })
       );
     }
