@@ -54,18 +54,14 @@ function OrderDetailSeller() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const user = readLocal('user');
-        const { data } = await fetchCardDetails(user.token, params.id);
+      const user = readLocal('user');
+      const { data } = await fetchCardDetails(user.token, params.id);
 
-        setOrder(data);
-        disabledButton(data[0].sale.status);
-        setTotalPrice(data[0].sale.totalPrice);
-        setStatus(data[0].sale.status);
-        setDate(data[0].sale.saleDate);
-      } catch (error) {
-        console.log(error);
-      }
+      setOrder(data);
+      disabledButton(data[0].sale.status);
+      setTotalPrice(data[0].sale.totalPrice);
+      setStatus(data[0].sale.status);
+      setDate(data[0].sale.saleDate);
     };
     fetchData();
   }, [params.id]);

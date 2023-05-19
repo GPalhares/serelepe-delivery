@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetchSales from '../../api/fetchSales';
-import Header from '../../components/Costumer/Header';
+import Header from '../../components/Customer/Header';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal, saveLocal } from '../../helpers/localStorage';
 import { sumItemsValue } from '../../helpers/cartFunctions';

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import Products from '../../components/Customer/CardList';
+import CardList from '../../components/Customer/CardList';
 import fetchProduct from '../../api/fetchProducts';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal } from '../../helpers/localStorage';
@@ -12,7 +12,7 @@ jest.mock('../../helpers/localStorage', () => ({
   saveLocal: jest.fn(),
 }));
 
-describe('Products Page', () => {
+describe('CardList Page', () => {
   const mockProductList = [
     { id: 1, name: 'Product 1', price: { value: 10 }, url_image: 'image1.jpg' },
     { id: 2, name: 'Product 2', price: { value: 20 }, url_image: 'image2.jpg' },
@@ -24,12 +24,12 @@ describe('Products Page', () => {
 
     return (
       <stateGlobalContext.Provider value={ contextValue }>
-        <Products />
+        <CardList />
       </stateGlobalContext.Provider>
     );
   }
 
-  it('Render product Page', async () => {
+  it('Render CardList Page', async () => {
     readLocal.mockReturnValue([]);
     fetchProduct.mockResolvedValueOnce({ data: mockProductList });
     readLocal.mockReturnValueOnce(null);

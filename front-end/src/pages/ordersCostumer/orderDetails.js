@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../components/Costumer/Header';
-import CardDetails from '../../components/Costumer/CardDetails';
+import Header from '../../components/Customer/Header';
+import CardDetails from '../../components/Customer/CardDetails';
 
 function OrderDetails() {
   return (

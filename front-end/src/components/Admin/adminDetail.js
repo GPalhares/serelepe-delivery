@@ -10,7 +10,6 @@ function AdminDetail() {
     const fetchData = async () => {
       const user = readLocal('user');
       const result = await fetchGetAllUsers(user.token);
-      console.log(result);
       setArrayUsers(result.data);
     };
     fetchData();
