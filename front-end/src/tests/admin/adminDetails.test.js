@@ -25,7 +25,7 @@ describe('AdminDetail', () => {
     fetchDeleteUser.mockResolvedValue({});
   });
 
-  test('Delete Button', async () => {
+  it('Delete Button', async () => {
     await act(async () => {
       render(
         <stateGlobalContext.Provider
