@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetchSales from '../../api/fetchSales';
-import Header from '../../components/Customer/Header';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal, saveLocal } from '../../helpers/localStorage';
 import { sumItemsValue } from '../../helpers/cartFunctions';
@@ -69,7 +68,6 @@ function CheckoutPage() {
 
   return (
     <>
-      <Header />
       <h3>Order Completion</h3>
       <table>
         <tbody>
@@ -81,7 +79,7 @@ function CheckoutPage() {
             <th>Subtotal</th>
             <th>Delete Item</th>
           </tr>
-          { arrayLocal.map((product, index) => {
+          { arrayLocal?.map((product, index) => {
             const subTotal = (+(product.price) * +(product.quantity)).toFixed(2);
             const item = `customer_checkout__element-order-table-item-number-${index}`;
             const name = `customer_checkout__element-order-table-name-${index}`;
@@ -118,7 +116,8 @@ function CheckoutPage() {
       >
         Total Price: R$
         {' '}
-        { `${(total.toFixed(2)).toString().replace('.', ',')}` }
+        { `${(total ? total.toFixed(2) : 0).toString().replace('.', ',')}` }
+
       </span>
       <div>
         <label htmlFor="sellerSelectCheckout">

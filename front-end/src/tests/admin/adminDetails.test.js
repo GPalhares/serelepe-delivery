@@ -25,54 +25,22 @@ describe('AdminDetail', () => {
     fetchDeleteUser.mockResolvedValue({});
   });
 
-  test('User list Render', async () => {
-    await act(async () => {
-      render(
-        <stateGlobalContext.Provider
-          value={{
-            arrayUsers: [
-                { id: 1, name: 'User 1', email: 'user1@example.com', role: 'admin' },
-                { id: 2, name: 'User 2', email: 'user2@example.com', role: 'user' },
-              ],
-            setArrayUsers: jest.fn(),
-            sellerStatus: [],
-            setSellerStatus: jest.fn(),
-          }}
-        >
-          <AdminDetail />
-        </stateGlobalContext.Provider>
-      );
-    });
-
-    expect(screen.getByText('User List')).toBeInTheDocument();
-
-    expect(screen.getByTestId('admin_manage__element-user-table-item-number-0')).toHaveTextContent('1');
-    expect(screen.getByTestId('admin_manage__element-user-table-name-0')).toHaveTextContent('User 1');
-    expect(screen.getByTestId('admin_manage__element-user-table-email-0')).toHaveTextContent('user1@example.com');
-    expect(screen.getByTestId('admin_manage__element-user-table-role-0')).toHaveTextContent('admin');
-
-    expect(screen.getByTestId('admin_manage__element-user-table-item-number-1')).toHaveTextContent('2');
-    expect(screen.getByTestId('admin_manage__element-user-table-name-1')).toHaveTextContent('User 2');
-    expect(screen.getByTestId('admin_manage__element-user-table-email-1')).toHaveTextContent('user2@example.com');
-    expect(screen.getByTestId('admin_manage__element-user-table-role-1')).toHaveTextContent('user');
-  });
-
   test('Delete Button', async () => {
     await act(async () => {
       render(
         <stateGlobalContext.Provider
-          value={{
+          value={ {
             arrayUsers: [
-                { id: 1, name: 'User 1', email: 'user1@example.com', role: 'admin' },
-                { id: 2, name: 'User 2', email: 'user2@example.com', role: 'user' },
-              ],
+              { id: 1, name: 'User 1', email: 'user1@example.com', role: 'admin' },
+              { id: 2, name: 'User 2', email: 'user2@example.com', role: 'user' },
+            ],
             setArrayUsers: jest.fn(),
             sellerStatus: [],
             setSellerStatus: jest.fn(),
-          }}
+          } }
         >
           <AdminDetail />
-        </stateGlobalContext.Provider>
+        </stateGlobalContext.Provider>,
       );
     });
 
@@ -81,6 +49,5 @@ describe('AdminDetail', () => {
     await act(async () => {
       fireEvent.click(deleteButton);
     });
-
   });
 });

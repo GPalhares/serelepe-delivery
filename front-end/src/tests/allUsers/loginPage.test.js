@@ -1,44 +1,74 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-// import { act } from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 import App from '../../App';
-// import fetchLogin from '../../api/fetchLogin';
+import fetchLogin from '../../api/fetchLogin';
 
 jest.mock('../../api/fetchLogin');
 
 describe('LoginPage', () => {
-  it('should render the login page', () => {
+  const emailInput = () => screen.getByTestId('common_login__input-email');
+  const passwordInput = () => screen.getByTestId('common_login__input-password');
+  const loginButton = () => screen.getByTestId('common_login__button-login');
+
+  const login = async (email, password) => {
+    await act(async () => {
+      fireEvent.change(emailInput(), { target: { value: email } });
+      fireEvent.change(passwordInput(), { target: { value: password } });
+      fireEvent.click(loginButton());
+    });
+  };
+
+  it('Login Page Render', () => {
     render(<App />, { wrapper: MemoryRouter });
 
     expect(screen.getByText('Login Page')).toBeInTheDocument();
     expect(screen.getByText('Email')).toBeInTheDocument();
     expect(screen.getByText('Password')).toBeInTheDocument();
-    expect(screen.getByTestId('common_login__button-login')).toBeInTheDocument();
+    expect(loginButton()).toBeInTheDocument();
     expect(screen.getByTestId('common_login__button-register')).toBeInTheDocument();
   });
 
-  // it('should display an error message for invalid login', async () => {
-  //   const mockUser = {
-  //     role: 'costumer',
-  //   };
-  //   fetchLogin.mockResolvedValueOnce({
-  //     status: 404,
-  //     data: mockUser,
-  //   });
+  it('Customer Login', async () => {
+    const mockUser = {
+      role: 'customer',
+    };
+    fetchLogin.mockResolvedValueOnce({
+      status: 404,
+      data: mockUser,
+    });
 
-  //   render(<App />, { wrapper: MemoryRouter });
+    render(<App />, { wrapper: MemoryRouter });
 
-  //   const emailInput = screen.getByTestId('common_login__input-email');
-  //   const passwordInput = screen.getByTestId('common_login__input-password');
-  //   const loginButton = screen.getByTestId('common_login__button-login');
+    await login('customer@example.com', 'password');
+  });
 
-  //   await act(async () => {
-  //     fireEvent.change(emailInput, { target: { value: 'test1@example.com' } });
-  //     fireEvent.change(passwordInput, { target: { value: 'password' } });
-  //     fireEvent.click(loginButton);
-  //   });
+  it('Seller Login', async () => {
+    const mockUser = {
+      role: 'seller',
+    };
+    fetchLogin.mockResolvedValueOnce({
+      status: 200,
+      data: mockUser,
+    });
 
-  //   expect(await screen.findByText('Invalid Login')).toBeInTheDocument();
-  // });
+    render(<App />, { wrapper: MemoryRouter });
+
+    await login('seller@example.com', 'password');
+  });
+
+  it('Administrator Login', async () => {
+    const mockUser = {
+      role: 'administrator',
+    };
+    fetchLogin.mockResolvedValueOnce({
+      status: 200,
+      data: mockUser,
+    });
+
+    render(<App />, { wrapper: MemoryRouter });
+
+    await login('admin@example.com', 'password');
+  });
 });

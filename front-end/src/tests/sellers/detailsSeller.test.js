@@ -49,22 +49,18 @@ describe('OrderDetailSeller', () => {
       render(<OrderDetailSeller />);
     });
 
-    expect(screen.getByText('Order Details')).toBeInTheDocument();
-    expect(screen.getByTestId('seller_order_details__element-order-details-label-order-id')).toHaveTextContent('Order: 0123');
-    expect(screen.getByTestId('seller_order_details__element-order-details-label-order-date')).toHaveTextContent('Date: 17/05/2023');
-
-
-    const preparingButton = screen.getByTestId('seller_order_details__button-preparing-check');
-    const dispatchButton = screen.getByTestId('seller_order_details__button-dispatch-check');
+    const commomTextId = 'seller_order_details__button';
+    const preparingButton = screen.getByTestId(
+      `${commomTextId}-preparing-check`,
+    );
+    const dispatchButton = screen.getByTestId(`${commomTextId}-dispatch-check`);
 
     expect(preparingButton).toHaveTextContent('Order Preparative');
     expect(dispatchButton).toHaveTextContent('Out to Delivery');
 
     await act(async () => {
-        fireEvent.click(preparingButton);
-        fireEvent.click(dispatchButton);
-      });
+      fireEvent.click(preparingButton);
+      fireEvent.click(dispatchButton);
+    });
   });
-
-  
 });

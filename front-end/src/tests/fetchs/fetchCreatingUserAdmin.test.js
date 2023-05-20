@@ -6,8 +6,8 @@ jest.mock('axios');
 describe('fetchCreatingUserAdmin', () => {
   it('succes response', async () => {
     const token = 'example_token';
-    const obj = { name: 'John Test', email: 'teste@teste.com' };
-    const responseData = { id: 1, name: 'John Test', email: 'teste@teste.com' };
+    const obj = { name: 'John Test', email: 'teste1@teste.com' };
+    const responseData = { id: 1, name: 'John Test', email: 'teste1@teste.com' };
     const mockPost = jest.fn().mockResolvedValueOnce({ data: responseData });
     axios.create.mockReturnValueOnce({
       post: mockPost,
@@ -21,7 +21,6 @@ describe('fetchCreatingUserAdmin', () => {
     expect(mockPost).toHaveBeenCalledWith('/admin', obj, {
       headers: { Authorization: token },
     });
-
   });
 
   it('error response', async () => {

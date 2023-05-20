@@ -5,8 +5,8 @@ jest.mock('axios');
 
 describe('fetchCreatingUser', () => {
   it('Sucess Response', async () => {
-    const obj = { name: 'John Test', email: 'teste@teste.com' };
-    const responseData = { id: 1, name: 'John Test', email: 'teste@teste.com' };
+    const obj = { name: 'John Test', email: 'teste1@teste.com' };
+    const responseData = { id: 1, name: 'John Test', email: 'teste1@teste.com' };
     const mockPost = jest.fn().mockResolvedValueOnce({ data: responseData });
     axios.create.mockReturnValueOnce({
       post: mockPost,
