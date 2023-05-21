@@ -8,6 +8,7 @@ async function fetchChangeStatus(token, id) {
     const result = await instance.put(`/sale/${id}`, {
       headers: { Authorization: token },
     });
+    console.log(result);
     return result;
   } catch (error) {
     return error.response;

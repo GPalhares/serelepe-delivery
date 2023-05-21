@@ -30,14 +30,12 @@ function AdminRegister() {
   };
 
   const handleClick = async (event) => {
-    event.preventDefault();
-    const user = readLocal('user');
+    event.preventDefault(); const user = readLocal('user');
     const response = await fetchCreatingUserAdmin(user
       .token, { name, email, password, role });
     const statusCode = 409;
     if (response.status === statusCode) {
-      setIsThereAnUser(true);
-      return setMessageError(response.data.message);
+      setIsThereAnUser(true); return setMessageError(response.data.message);
     }
     setIsThereAnUser(false);
     if (response.data.role !== 'administrator') {

@@ -25,7 +25,7 @@ describe('Register Page', () => {
     renderApp();
 
     fetchLogin.mockResolvedValueOnce({
-      status: 404,
+      status: 200,
       data: mockUser,
     });
 

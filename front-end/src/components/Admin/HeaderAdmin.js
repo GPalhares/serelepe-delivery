@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import fetchToken from '../../api/fetchToken';
+
 import { clearLocal, readLocal } from '../../helpers/localStorage';
 
 function HeaderAdmin() {
   const [admin, setAdmin] = useState({});
 
   useEffect(() => {
-    // const fetchData = async (key) => {
-    //   const user = await fetchToken(key);
-    //   setAdmin(user);
-    //   console.log(user.data);
-    // };
     const deliveryApp = readLocal('user');
     setAdmin(deliveryApp);
-
-    // if (deliveryApp) {
-    //   fetchData(deliveryApp.token);
-    // }
   }, []);
 
   return (
@@ -26,6 +17,7 @@ function HeaderAdmin() {
         to="/admin/manage"
         data-testid="customer_products__element-navbar-link-orders"
       >
+        {' '}
         User Manager
       </Link>
       <div data-testid="customer_products__element-navbar-user-full-name">
@@ -38,6 +30,7 @@ function HeaderAdmin() {
       >
         Logout
       </Link>
+
     </div>
   );
 }

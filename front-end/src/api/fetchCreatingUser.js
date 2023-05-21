@@ -9,6 +9,7 @@ async function fetchCreatingUser(obj) {
       '/users',
       obj,
     );
+    console.log(result);
     return result;
   } catch (error) {
     return error.response;

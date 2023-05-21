@@ -35,7 +35,8 @@ function OrderDetailSeller() {
     return result;
   };
   const priceConverter = (currency) => {
-    const brlCurrency = currency.toString().replace('.', ',');
+    const brlCurrency = currency.toString()
+      .replace('.', ',');
     return `R$ ${brlCurrency}`;
   };
 

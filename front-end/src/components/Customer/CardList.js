@@ -14,8 +14,7 @@ function CardList() {
   useEffect(() => {
     const localStorageCartItems = readLocal('cartItems');
     if (localStorageCartItems !== null) {
-      setMyArray(localStorageCartItems);
-      setCarItensLocal(localStorageCartItems);
+      setMyArray(localStorageCartItems); setCarItensLocal(localStorageCartItems);
     }
     const gettingProducts = async () => {
       const productList = await fetchProduct();
@@ -31,10 +30,7 @@ function CardList() {
       saveLocal('cartValue', sumItemsValue(updatedCarItens).toFixed(2));
       return updatedCarItens;
     });
-    setMyArray((prevMyArray) => {
-      const updatedMyArray = [...prevMyArray, item];
-      return sumItems(updatedMyArray);
-    });
+    setMyArray((prevMyArray) => sumItems([...prevMyArray, item]));
   };
 
   const inputIncrementOrDecrement = (item) => {
@@ -43,17 +39,14 @@ function CardList() {
       newArray = prevMyArray.map((oldItem) => {
         if (oldItem.id === item.id) {
           return { ...oldItem, quantity: item.quantity };
-        }
-        return oldItem;
+        } return oldItem;
       });
       if (!newArray.some((oldItem) => oldItem.id === item.id)) {
-        newArray = [...newArray, item];
-        saveLocal('cartItems', newArray);
+        newArray = [...newArray, item]; saveLocal('cartItems', newArray);
         saveLocal('cartValue', sumItemsValue(newArray).toFixed(2));
       }
       return newArray;
     });
-    console.log(newArray);
     setMyArray(sumItems(newArray));
     saveLocal('cartItems', newArray);
     saveLocal('cartValue', sumItemsValue(newArray).toFixed(2));

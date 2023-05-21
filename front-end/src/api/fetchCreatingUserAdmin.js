@@ -10,6 +10,7 @@ async function fetchCreatingUser(token, obj) {
       obj,
       { headers: { Authorization: token } },
     );
+    console.log(result);
     return result;
   } catch (error) {
     return error.response;
