@@ -1,0 +1,27 @@
+.divLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+}
+
+.divLogoSerelepe {
+    margin-left: 20%;
+    width: 50%;
+}
+
+.logoSerelepe {
+    height: auto;
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.login-form {
+    display: flex;
+    width: 55%;
+    flex-direction: column;
+}
+
+.inputField {
+    width: 50%;
+}

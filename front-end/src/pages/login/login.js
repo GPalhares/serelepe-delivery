@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import fetchLogin from '../../api/fetchLogin';
 import { saveLocal, readLocal } from '../../helpers/localStorage';
+import LogoSerepele from '../../images/logoSerelepe.png';
+import '../../styles/loginPage/login.css';
 
 function LoginPage() {
   const history = useHistory();
@@ -64,49 +68,62 @@ function LoginPage() {
   }, [history]);
 
   return (
-    <div>
+    <div className="divLogin">
+      <div className="divLogoSerelepe">
+        <img className="logoSerelepe" src={ LogoSerepele } alt="Logo" />
+      </div>
       <form className="login-form">
-        <h1>Login Page</h1>
-        <label htmlFor="login">
-          Email
-          <input
+        <Box
+          sx={ {
+            display: 'flex',
+            flexDirection: 'column',
+            '& > :not(style)': { m: 1 },
+          } }
+        >
+          <h1>Login Page</h1>
+
+          <TextField
+            className="inputField"
             type="text"
             onChange={ ({ target }) => handleInputChange(target) }
             value={ email }
             data-testid="common_login__input-email"
             id="email"
             name="email"
+            label="Email"
           />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
+
+          <TextField
+            className="inputField"
             onChange={ ({ target }) => handleInputChange(target) }
             value={ password }
             data-testid="common_login__input-password"
             id="password"
             name="password"
+            label="Password"
           />
-        </label>
-        <button
-          disabled={ checkingFormatt() }
-          data-testid="common_login__button-login"
-          type="submit"
-          name="Login"
-          onClick={ (event) => handleClick(event) }
 
-        >
-          Login
+          <div>
+            <button
+              disabled={ checkingFormatt() }
+              data-testid="common_login__button-login"
+              type="submit"
+              name="Login"
+              onClick={ (event) => handleClick(event) }
+            >
+              Login
 
-        </button>
-        <button
-          data-testid="common_login__button-register"
-          type="submit"
-          onClick={ () => history.push('/register') }
-        >
-          Register
+            </button>
+            <button
+              data-testid="common_login__button-register"
+              type="submit"
+              onClick={ () => history.push('/register') }
+            >
+              Register
 
-        </button>
+            </button>
+          </div>
+        </Box>
       </form>
       { invalidLogin
       && (
