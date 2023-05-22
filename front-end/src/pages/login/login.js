@@ -1,35 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import fetchLogin from '../../api/fetchLogin';
-import { saveLocal, readLocal } from '../../helpers/localStorage';
-import LogoSerepele from '../../images/logoSerelepe.png';
-import '../../styles/loginPage/login.css';
+/* eslint-disable */
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import fetchLogin from "../../api/fetchLogin";
+import { saveLocal, readLocal } from "../../helpers/localStorage";
+import logoTransparent from "../../images/logoTransparent.png";
+import "../../styles/loginPage/login.css";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import { MdVisibility } from "react-icons/fa";
 
 function LoginPage() {
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [invalidLogin, setInvalidLogin] = useState(false);
-  const [messageError, setMessageError] = useState('');
+  const [messageError, setMessageError] = useState("");
+  const [showPassword, setShowPassword] = useState("password");
 
   const checkingFormatt = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const minSize = 6;
     const isAValidEmail = emailRegex.test(email);
     const isAValidPassword = password.length >= minSize;
-    return (!(isAValidEmail && isAValidPassword));
+    return !(isAValidEmail && isAValidPassword);
   };
 
-  const handleInputChange = async (target) => {
-    if (target.name === 'email') setEmail(target.value);
-    if (target.name === 'password') setPassword(target.value);
+  const handleInputChange = async target => {
+    if (target.name === "email") setEmail(target.value);
+    if (target.name === "password") setPassword(target.value);
   };
 
-  const handleClick = async (event) => {
+  const handleClick = async event => {
     event.preventDefault();
     const apiError = 404;
 
@@ -37,103 +42,118 @@ function LoginPage() {
 
     if (dataResult.status === apiError) {
       setInvalidLogin(true);
-      return setMessageError('Invalid Login');
+      return setMessageError("Invalid Login");
     }
     setInvalidLogin(false);
-    saveLocal('user', { ...dataResult.data });
+    saveLocal("user", { ...dataResult.data });
 
-    if (readLocal('user').role === 'customer') {
-      history.push('/customer/products');
+    if (readLocal("user").role === "customer") {
+      history.push("/customer/products");
     }
-    if (readLocal('user').role === 'seller') {
-      history.push('/seller/orders');
+    if (readLocal("user").role === "seller") {
+      history.push("/seller/orders");
     }
-    if (readLocal('user').role === 'administrator') {
-      history.push('/admin/manage');
+    if (readLocal("user").role === "administrator") {
+      history.push("/admin/manage");
     }
   };
 
   useEffect(() => {
-    if (readLocal('user')) {
-      if (readLocal('user').role === 'customer') {
-        history.push('/customer/products');
+    if (readLocal("user")) {
+      if (readLocal("user").role === "customer") {
+        history.push("/customer/products");
       }
-      if (readLocal('user').role === 'seller') {
-        history.push('/seller/orders');
+      if (readLocal("user").role === "seller") {
+        history.push("/seller/orders");
       }
-      if (readLocal('user').role === 'administrator') {
-        history.push('/admin/manage');
+      if (readLocal("user").role === "administrator") {
+        history.push("/admin/manage");
       }
     }
   }, [history]);
 
   return (
-    <div className="divLogin">
-      <div className="divLogoSerelepe">
-        <img className="logoSerelepe" src={ LogoSerepele } alt="Logo" />
+    <html className="classHtml" lang="pt-br">
+      <div className="divLogin">
+        <div className="divLogoSerelepe">
+          <img className="logoSerelepe" src={logoTransparent} alt="Logo" />
+        </div>
+        <form className="login-form">
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              "& > :not(style)": { m: 1 }
+            }}
+          >
+            <h1>Login</h1>
+
+            <TextField
+              className="inputField"
+              type="text"
+              onChange={({ target }) => handleInputChange(target)}
+              value={email}
+              data-testid="common_login__input-email"
+              id="email"
+              name="email"
+              label="Email"
+            />
+            <div  >
+              <TextField
+                className="inputField"
+                onChange={({ target }) => handleInputChange(target)}
+                value={password}
+                data-testid="common_login__input-password"
+                id="password"
+                name="password"
+                label="Password"
+                type={showPassword}
+              />
+              <Button style={{ backgroundColor:'#6e0e0a' ,margin: '5px', color: 'white', display: 'flex', justifyContent: 'center' }}
+                label="Show password"
+                type="button"
+                variant="contained"
+                onClick={() =>
+                  setShowPassword(showPassword === "text" ? "password" : "text")
+                }
+                
+              >
+                {showPassword === "text" ? "Hide password" : "Show password"}
+              </Button>
+            </div>
+
+            <Stack direction="row" spacing={2}>
+              <Button
+                style={{ backgroundColor: checkingFormatt() ? 'grey' : '#6e0e0a' ,margin: '5px', color: 'white', display: 'flex' }}
+                disabled={checkingFormatt()}
+                data-testid="common_login__button-login"
+                type="submit"
+                name="Login"
+                onClick={event => handleClick(event)}
+                color='success'
+                variant="contained"
+              >
+                Login
+              </Button>
+              <Button
+              variant="contained"
+              style={{ backgroundColor:'#6e0e0a' ,margin: '5px', color: 'white', display: 'flex' }}
+                data-testid="common_login__button-register"
+                type="submit"
+                onClick={() => history.push("/register")}
+              >
+                Register
+              </Button>
+            </Stack>
+          </Box>
+        </form>
+        {invalidLogin && (
+          <p data-testid="common_login__element-invalid-email">
+            {messageError}
+          </p>
+        )}
       </div>
-      <form className="login-form">
-        <Box
-          sx={ {
-            display: 'flex',
-            flexDirection: 'column',
-            '& > :not(style)': { m: 1 },
-          } }
-        >
-          <h1>Login Page</h1>
-
-          <TextField
-            className="inputField"
-            type="text"
-            onChange={ ({ target }) => handleInputChange(target) }
-            value={ email }
-            data-testid="common_login__input-email"
-            id="email"
-            name="email"
-            label="Email"
-          />
-
-          <TextField
-            className="inputField"
-            onChange={ ({ target }) => handleInputChange(target) }
-            value={ password }
-            data-testid="common_login__input-password"
-            id="password"
-            name="password"
-            label="Password"
-          />
-
-          <div>
-            <button
-              disabled={ checkingFormatt() }
-              data-testid="common_login__button-login"
-              type="submit"
-              name="Login"
-              onClick={ (event) => handleClick(event) }
-            >
-              Login
-
-            </button>
-            <button
-              data-testid="common_login__button-register"
-              type="submit"
-              onClick={ () => history.push('/register') }
-            >
-              Register
-
-            </button>
-          </div>
-        </Box>
-      </form>
-      { invalidLogin
-      && (
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          {messageError}
-
-        </p>)}
-    </div>
+    </html>
   );
 }
 
