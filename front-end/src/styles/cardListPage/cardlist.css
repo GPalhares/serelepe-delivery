@@ -1,0 +1,19 @@
+/* stylelint-disable */
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    justify-content: center;
+    padding: 15px;
+}
+
+.drinkTittle {
+    font-family: 'Secular One', sans-serif;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 60px;
+
+}

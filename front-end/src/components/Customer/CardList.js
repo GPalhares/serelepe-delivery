@@ -5,6 +5,7 @@ import { sumItems, sumItemsValue } from '../../helpers/cartFunctions';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal, saveLocal } from '../../helpers/localStorage';
 import '../../styles/productsPage/products.css';
+import '../../styles/cardListPage/cardlist.css';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);
@@ -57,7 +58,7 @@ function CardList() {
 
   return (
     <html className="classHtml" lang="en">
-      <h1>Cards</h1>
+      <p className="drinkTittle">Drinks</p>
       <div className="card-list">
         {productsList.map((prod, index) => {
           const cartItem = readLocal('cartItems')?.find((item) => item.id === prod.id);

@@ -12,6 +12,7 @@ function Header() {
   }, []);
 
   return (
+
     <div className="classHeader">
       <Link
         to="/customer/products"
@@ -29,7 +30,7 @@ function Header() {
         Orders
       </Link>
 
-      <h3 className="header-user">{`User: ${user.name}`}</h3>
+      <p className="header-user">{user.name}</p>
 
       <Link
         to="/"
@@ -40,6 +41,7 @@ function Header() {
         Logout
       </Link>
     </div>
+
   );
 }
 
