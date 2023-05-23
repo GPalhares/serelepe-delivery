@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { clearLocal, readLocal } from '../../helpers/localStorage';
+import '../../styles/components/header.css';
 
 function Header() {
   const [user, setUser] = useState({});
@@ -11,31 +12,30 @@ function Header() {
   }, []);
 
   return (
-    <div>
+    <div className="classHeader">
       <Link
         to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
+        className="header-link"
       >
         Products
-
       </Link>
-      <br />
-      <br />
+
       <Link
         to="/customer/orders"
         data-testid="customer_products__element-navbar-link-orders"
+        className="header-link"
       >
         Orders
       </Link>
-      <div
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        <h3>{ `User: ${user.name}` }</h3>
-      </div>
+
+      <h3 className="header-user">{`User: ${user.name}`}</h3>
+
       <Link
         to="/"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ () => clearLocal() }
+        className="header-link"
       >
         Logout
       </Link>

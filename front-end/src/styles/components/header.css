@@ -1,0 +1,28 @@
+/* stylelint-disable */
+
+
+.classHeader {
+    background-color: #EB984E;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+
+}
+
+.header-link {
+    margin-right: 20px;
+    margin-left: 20px;
+    color: #333;
+    text-decoration: none;
+
+}
+
+.header-user {
+    margin-right: 20px;
+    margin-left: auto;
+}
+
+.header-link:last-child {
+    margin-right: 20px;
+    margin-left: 20px;
+}

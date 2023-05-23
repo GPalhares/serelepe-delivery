@@ -1,4 +1,25 @@
 /* stylelint-disable */
+
+@media (max-width: 768px) {
+    .divLogoSerelepe {
+        height: 0px;
+        width: 0;
+    }
+
+    .logoSerelepe {
+        display: none;
+        width: 0px;
+    }
+
+    .divLogin {
+        width: 100%;
+        margin-top: 15%;
+
+    }
+}
+
+
+
 .classHtml::before {
     content: "";
     position: fixed;
@@ -25,6 +46,8 @@
     margin-left: 20%;
     width: 50%;
 }
+
+
 
 
 .logoSerelepe {

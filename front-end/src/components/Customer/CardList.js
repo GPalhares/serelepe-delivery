@@ -4,6 +4,7 @@ import Card from './Card';
 import { sumItems, sumItemsValue } from '../../helpers/cartFunctions';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal, saveLocal } from '../../helpers/localStorage';
+import '../../styles/productsPage/products.css';
 
 function CardList() {
   const [productsList, setProductList] = useState([]);
@@ -55,7 +56,7 @@ function CardList() {
   };
 
   return (
-    <>
+    <html className="classHtml" lang="en">
       <h1>Cards</h1>
       <div className="card-list">
         {productsList.map((prod, index) => {
@@ -76,7 +77,7 @@ function CardList() {
           );
         })}
       </div>
-    </>
+    </html>
   );
 }
 export default CardList;
