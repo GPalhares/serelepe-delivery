@@ -8,9 +8,13 @@ function AdminDetail() {
   const { arrayUsers, setArrayUsers } = useContext(stateGlobalContext);
   useEffect(() => {
     const fetchData = async () => {
-      const user = readLocal('user');
-      const result = await fetchGetAllUsers(user.token);
-      setArrayUsers(result.data);
+      try {
+        const user = readLocal('user');
+        const result = await fetchGetAllUsers(user.token);
+        setArrayUsers(result.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchData();
   }, [setArrayUsers]);

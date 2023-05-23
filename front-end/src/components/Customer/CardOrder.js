@@ -75,12 +75,14 @@ function CardOrder() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = readLocal('user');
-      const userDatabase = await fetchGetUserId({ userEmail: user.email });
-      const userId = userDatabase.data.userId.id;
-      const { data } = await fetchSalesByRoleId(user.token, { id: userId,
-        role: 'userId' });
-      setOrders(data);
+      try {
+        const user = readLocal('user');
+        const userDatabase = await fetchGetUserId({ userEmail: user.email });
+        const userId = userDatabase.data.userId.id;
+        const { data } = await fetchSalesByRoleId(user.token, { id: userId,
+          role: 'userId' });
+        setOrders(data);
+      } catch (error) { console.error(error); }
     };
     fetchData();
   }, []);
