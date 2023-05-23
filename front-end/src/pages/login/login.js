@@ -9,7 +9,9 @@ import logoTransparent from "../../images/logoTransparent.png";
 import "../../styles/loginPage/login.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { MdVisibility } from "react-icons/fa";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 function LoginPage() {
   const history = useHistory();
@@ -76,7 +78,7 @@ function LoginPage() {
     <html className="classHtml" lang="pt-br">
       <div className="divLogin">
         <div className="divLogoSerelepe">
-          <img className="logoSerelepe" src={logoTransparent} alt="Logo" />
+          <img  draggable="false" className="logoSerelepe" src={logoTransparent} alt="Logo" />
         </div>
         <form className="login-form">
           <Box
@@ -97,8 +99,9 @@ function LoginPage() {
               id="email"
               name="email"
               label="Email"
+              x={{ width: "50%" }}
             />
-            <div  >
+            <div style={{ display: "flex", alignItems: "center" }}>
               <TextField
                 className="inputField"
                 onChange={({ target }) => handleInputChange(target)}
@@ -108,36 +111,48 @@ function LoginPage() {
                 name="password"
                 label="Password"
                 type={showPassword}
+                sx={{ width: "51.5%" }}
               />
-              <Button style={{ backgroundColor:'#6e0e0a' ,margin: '5px', color: 'white', display: 'flex', justifyContent: 'center' }}
-                label="Show password"
-                type="button"
-                variant="contained"
+              <IconButton
                 onClick={() =>
                   setShowPassword(showPassword === "text" ? "password" : "text")
                 }
-                
+                edge="end"
               >
-                {showPassword === "text" ? "Hide password" : "Show password"}
-              </Button>
+                {showPassword === "text" ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
             </div>
-
+            {invalidLogin && (
+          <p style={{display: 'flex'}} data-testid="common_login__element-invalid-email">
+            {messageError}
+          </p>
+        )}
             <Stack direction="row" spacing={2}>
               <Button
-                style={{ backgroundColor: checkingFormatt() ? 'grey' : '#6e0e0a' ,margin: '5px', color: 'white', display: 'flex' }}
+                style={{
+                  backgroundColor: checkingFormatt() ? "grey" : "#6e0e0a",
+                  margin: "5px",
+                  color: "white",
+                  display: "flex"
+                }}
                 disabled={checkingFormatt()}
                 data-testid="common_login__button-login"
                 type="submit"
                 name="Login"
                 onClick={event => handleClick(event)}
-                color='success'
+                color="success"
                 variant="contained"
               >
                 Login
               </Button>
               <Button
-              variant="contained"
-              style={{ backgroundColor:'#6e0e0a' ,margin: '5px', color: 'white', display: 'flex' }}
+                variant="contained"
+                style={{
+                  backgroundColor: "#6e0e0a",
+                  margin: "5px",
+                  color: "white",
+                  display: "flex"
+                }}
                 data-testid="common_login__button-register"
                 type="submit"
                 onClick={() => history.push("/register")}
@@ -147,12 +162,9 @@ function LoginPage() {
             </Stack>
           </Box>
         </form>
-        {invalidLogin && (
-          <p data-testid="common_login__element-invalid-email">
-            {messageError}
-          </p>
-        )}
+  
       </div>
+
     </html>
   );
 }
