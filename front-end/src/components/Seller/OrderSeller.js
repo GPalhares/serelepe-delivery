@@ -86,12 +86,14 @@ function OrderSeller() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = readLocal('user');
-      const sellerDatabase = await fetchGetUserId({ userEmail: user.email });
-      const sellerId = sellerDatabase.data.userId.id;
-      const { data } = await fetchSalesByRoleId(user.token, { id: sellerId,
-        role: 'sellerId' });
-      setOrders(data);
+      try {
+        const user = readLocal('user');
+        const sellerDatabase = await fetchGetUserId({ userEmail: user.email });
+        const sellerId = sellerDatabase.data.userId.id;
+        const { data } = await fetchSalesByRoleId(user.token, { id: sellerId,
+          role: 'sellerId' });
+        setOrders(data);
+      } catch (error) { console.error(error); }
     };
     fetchData();
   }, []);

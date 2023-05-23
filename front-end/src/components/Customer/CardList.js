@@ -17,8 +17,10 @@ function CardList() {
       setMyArray(localStorageCartItems); setCarItensLocal(localStorageCartItems);
     }
     const gettingProducts = async () => {
-      const productList = await fetchProduct();
-      setProductList(productList.data);
+      try {
+        const productList = await fetchProduct();
+        setProductList(productList.data);
+      } catch (error) { console.error(error); }
     };
     gettingProducts();
   }, [setMyArray]);

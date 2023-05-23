@@ -23,8 +23,10 @@ function CheckoutPage() {
 
   useEffect(() => {
     async function getSellers() {
-      setSellers(await fetchSellers());
-      console.log(await fetchSellers());
+      try {
+        setSellers(await fetchSellers());
+        console.log(await fetchSellers());
+      } catch (error) { console.error(error); }
     }
     getSellers();
   }, []);

@@ -91,21 +91,24 @@ function CardDetails() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = readLocal('user');
-      const { data } = await fetchCardDetails(user.token, params.id);
-      const allSellers = await fetchSellers();
-      setOrders(data);
-      if (data.length > 0) {
-        setTotalPrice(priceConverter(data[0].sale.totalPrice));
-        setStatus(data[0].sale.status);
-        if (data[0].sale.status === 'Em Trânsito') {
-          setDisable(false);
+      try {
+        const user = readLocal('user');
+        const { data } = await fetchCardDetails(user.token, params.id);
+        const allSellers = await fetchSellers();
+        setOrders(data);
+        if (data.length > 0) {
+          setTotalPrice(priceConverter(data[0].sale.totalPrice));
+          setStatus(data[0].sale.status);
+          if (data[0].sale.status === 'Em Trânsito') {
+            setDisable(false);
+          }
+          setDate(dateConverter(data[0].sale.saleDate));
+          setSeller(allSellers.find((s) => s.id === data[0].sale.sellerId).name);
         }
-        setDate(dateConverter(data[0].sale.saleDate));
-        setSeller(allSellers.find((s) => s.id === data[0].sale.sellerId).name);
+      } catch (error) {
+        console.error(error);
       }
     };
-
     fetchData();
   }, [params.id, status]);
 
