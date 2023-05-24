@@ -78,6 +78,7 @@ function CardList() {
           );
         })}
       </div>
+
     </html>
   );
 }

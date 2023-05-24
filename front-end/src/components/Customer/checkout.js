@@ -1,10 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import NativeSelect from '@mui/material/NativeSelect';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import fetchSales from '../../api/fetchSales';
 import stateGlobalContext from '../../context/stateGlobalContext';
 import { readLocal, saveLocal } from '../../helpers/localStorage';
 import { sumItemsValue } from '../../helpers/cartFunctions';
 import fetchSellers from '../../api/fetchSellers';
+import '../../styles/checkoutPage/checkout.css';
 
 function CheckoutPage() {
   const { setMyArray, myArray } = useContext(stateGlobalContext);
@@ -66,17 +72,17 @@ function CheckoutPage() {
   }
 
   return (
-    <>
+    <div className="shopping-cart-table">
       <h3>Order Completion</h3>
       <table>
         <tbody>
           <tr>
             <th>Item</th>
             <th>Description</th>
-            <th>Quantity</th>
+            <th>Qty</th>
             <th>Unit Price</th>
             <th>Subtotal</th>
-            <th>Delete Item</th>
+            <th>Remove Item</th>
           </tr>
           { arrayLocal.map((product, index) => {
             console.log(arrayLocal);
@@ -99,75 +105,79 @@ function CheckoutPage() {
                   {`R$ ${subTotal.toString().replace('.', ',')}`}
                 </td>
                 <td data-testid={ remove }>
-                  <button
+                  <IconButton
                     type="submit"
                     onClick={ () => deleteItem(product.id) }
                   >
-                    Delete Item
-                  </button>
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <span
+      <h2
         data-testid="customer_checkout__element-order-total-price"
       >
-        Total Price: R$
+        Total: R$
         {' '}
         { `${(total ? total.toFixed(2) : 0).toString().replace('.', ',')}` }
 
-      </span>
+      </h2>
       <div>
-        <label htmlFor="sellerSelectCheckout">
-          {selectedSeller}
-          <br />
-          <select
-            id="sellerSelect"
-            data-testid="customer_checkout__select-seller"
-            onChange={ (e) => setSelectedSeller(e.target.value) }
-          >
-            {sellers.map((seller) => (
-              <option value={ seller.id } key={ seller.name }>
-                {seller.name}
-              </option>))}
-          </select>
-        </label>
+
+        <p>Seller</p>
+        <NativeSelect
+          id="sellerSelect"
+          data-testid="customer_checkout__select-seller"
+          onChange={ (e) => setSelectedSeller(e.target.value) }
+          defaultValue={ sellers.length > 0 ? sellers[0].id : '' }
+        >
+          {sellers.map((seller) => (
+            <option value={ seller.id } key={ seller.name }>
+              {seller.name}
+            </option>))}
+        </NativeSelect>
+
+        <TextField
+          id="checkoutAddress"
+          name="checkoutAddress"
+          data-testid="customer_checkout__input-address"
+          type="text"
+          label="Address"
+          onChange={ ({ target }) => handleInputChange(target) }
+        />
+
+        <TextField
+          id="addressNumberCheckout"
+          label="Address Number"
+          name="addressNumberCheckout"
+          data-testid="customer_checkout__input-address-number"
+          type="text"
+          onChange={ ({ target }) => handleInputChange(target) }
+        />
+
         <br />
-        <label htmlFor="checkoutAddress">
-          Address
-          <br />
-          <input
-            id="checkoutAddress"
-            name="checkoutAddress"
-            data-testid="customer_checkout__input-address"
-            type="text"
-            onChange={ ({ target }) => handleInputChange(target) }
-          />
-        </label>
-        <br />
-        <label htmlFor="addressNumberCheckout">
-          Number
-          <br />
-          <input
-            id="addressNumberCheckout"
-            name="addressNumberCheckout"
-            data-testid="customer_checkout__input-address-number"
-            type="text"
-            onChange={ ({ target }) => handleInputChange(target) }
-          />
-        </label>
-        <br />
-        <button
+        <Button
+          className="checkoutButton"
+          variant="contained"
+          style={ {
+            backgroundColor: '#dd571c',
+            padding: '20px',
+            margin: '5px auto',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+          } }
           data-testid="customer_checkout__button-submit-order"
           type="submit"
-          onClick={ handleClick }
+          onClick={ () => handleClick() }
         >
           Order Completion
-        </button>
+        </Button>
       </div>
-    </>
+    </div>
   );
 }
 
