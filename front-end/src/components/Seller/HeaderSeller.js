@@ -13,8 +13,7 @@ function Header() {
 
   return (
     <div className="classHeader">
-      <br />
-      <br />
+
       <Link
         className="header-link"
         to="/seller/orders"
@@ -22,7 +21,9 @@ function Header() {
       >
         Orders
       </Link>
-      <h3 className="header-user-seller">{ ` ${user.name}` }</h3>
+      <p className="header-user-seller">
+        {user.name}
+      </p>
 
       <Link
         className="logoutLink"

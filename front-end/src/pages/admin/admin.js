@@ -15,13 +15,13 @@ function Admin() {
   ]);
 
   return (
-    <div className="checkoutPage">
+    <html lang="en" className="checkoutPage">
       <stateGlobalContext.Provider value={ stateValue }>
         <HeaderAdmin />
         <AdminRegister />
         <AdminDetail />
       </stateGlobalContext.Provider>
-    </div>
+    </html>
   );
 }
 

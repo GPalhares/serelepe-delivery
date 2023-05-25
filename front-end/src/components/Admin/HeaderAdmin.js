@@ -21,10 +21,10 @@ function HeaderAdmin() {
         User Manager
       </Link>
 
-      <h3 className="header-user-seller">{`${admin.name}`}</h3>
+      <p className="header-user-seller">{admin.name}</p>
 
       <Link
-        className="logoutLink"
+        className="header-link"
         to="/"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ () => clearLocal() }

@@ -30,7 +30,7 @@ function Header() {
         Orders
       </Link>
 
-      <p className="header-user">{user.name}</p>
+      <p className="header-user-seller">{user.name}</p>
 
       <Link
         to="/"

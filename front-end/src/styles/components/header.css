@@ -24,11 +24,6 @@
     color: #ffffff;
 }
 
-.header-user {
-    display: flex;
-    text-align: right;
-}
-
 .logoutLink {
     color: #333;
     text-decoration: none;
@@ -51,6 +46,8 @@
 /* Mobile Responsive Styles */
 @media (max-width: 600px) {
     .classHeader {
+        width: 135%;
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
@@ -65,7 +62,7 @@
         margin-bottom: 0;
     }
 
-    .header-user {
+    .header-user-seller {
         flex-direction: column;
         align-items: center;
     }

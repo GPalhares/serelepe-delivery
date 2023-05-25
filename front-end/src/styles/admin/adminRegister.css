@@ -1,8 +1,5 @@
 /* stylelint-disable */
-
-
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
-
 
 .checkoutPage::before {
     content: "";
@@ -17,85 +14,64 @@
     z-index: -1;
 }
 
-.shopping-cart-table {
+.adminRegister {
     font-family: 'Secular One', sans-serif;
     background-color: #FCF3CF;
-    width: 130%;
     display: flex;
-    text-align: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-
+    max-width: 600px;
     padding: 20px;
     border-radius: 8px;
-
 }
 
-.shopping-cart-table h3 {
+.adminRegister h3 {
     font-family: 'Secular One', sans-serif;
     margin: 10px;
     padding: 10px;
     text-align: center;
-    font-size: 60px;
+    font-size: 5vw;
+
 }
 
-.shopping-cart-table h2 {
+.adminRegister h2 {
     font-family: 'Secular One', sans-serif;
     text-align: center;
-    font-size: 40px;
+    font-size: 3.5vw;
+
     margin: 5px;
     padding: 5px;
 }
 
-.shopping-cart-table table {
+.adminRegister p {
     font-family: 'Secular One', sans-serif;
-    /* table-layout: auto; */
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    font-size: 2vw;
 }
 
-.shopping-cart-table th,
-.shopping-cart-table td {
-    text-align: center;
-    padding: 10px;
-    border: 2px solid black;
-}
-
-.shopping-cart-table th {
-    font-size: 20px;
-}
-
-.shopping-cart-table p {
-    font-family: 'Secular One', sans-serif;
-    font-size: 20px;
-}
-
-.shopping-cart-table td button {
+.adminRegister td button {
     padding: 5px 10px;
     background-color: #eb974e00;
     color: rgb(8, 8, 8);
     cursor: pointer;
 }
 
-.shopping-cart-table td button:hover {
+.adminRegister td button:hover {
     background-color: #EB984E;
 }
 
-.shopping-cart-table button {
+.adminRegister button {
     margin: 10px;
     padding: 15px;
 }
 
-
-
-.shopping-cart-table span[data-testid="customer_checkout__element-order-total-price"] {
+.adminRegister span[data-testid="customer_checkout__element-order-total-price"] {
     display: block;
     margin-bottom: 20px;
 }
 
-.shopping-cart-table label {
+.adminRegister label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
@@ -105,16 +81,57 @@
     border-bottom: none;
 }
 
-
-.shopping-cart-table select {
+.adminRegister select {
     font-family: 'Secular One', sans-serif;
-    padding: 16.5px;
+    padding: 1.5vw;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.shopping-cart-table div {
+.adminRegister div {
     font-family: 'Secular One', sans-serif;
     padding: 2px;
     text-align: center;
+}
+
+@media (max-width: 600px) {
+    .adminRegister form {
+        text-align: center;
+    }
+
+    .adminRegister input {
+        width: 80%;
+        height: 10vh;
+        text-align: center;
+    }
+
+    .adminRegister div {
+        text-align: center;
+    }
+
+    .adminRegister h3 {
+        font-size: 8vw;
+    }
+
+    .adminRegister h2 {
+        font-size: 6vw;
+
+    }
+
+    .adminRegister p {
+        font-size: 3vw;
+
+    }
+
+    .adminRegister button {
+        padding: 8px 12px;
+
+        font-size: 4vw;
+
+    }
+
+    .adminRegister select {
+        padding: 3vw;
+
+    }
 }

@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import fetchCreatingUserAdmin from "../../api/fetchCreatingUserAdmin";
 import stateGlobalContext from "../../context/stateGlobalContext";
 import { readLocal } from "../../helpers/localStorage";
-import "../../styles/checkoutPage/checkout.css";
+import "../../styles/admin/adminRegister.css"
 
 function AdminRegister() {
   const [email, setEmail] = useState("");
@@ -57,7 +57,7 @@ function AdminRegister() {
   };
 
   return (
-    <div className="shopping-cart-table">
+    <div className="adminRegister" style={{textAlign:'center'}}>
       <form>
         <h3>Register</h3>
         <div>

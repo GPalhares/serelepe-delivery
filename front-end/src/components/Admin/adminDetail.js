@@ -46,14 +46,15 @@ function AdminDetail() {
 
   return (
     <div className="shopping-cart-table">
-      <h2>User List</h2>
-      <table>
+
+      <table className="shopping-cart-table">
+        <h2>User List</h2>
         <tbody>
           <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Type</th>
-            <th>Delete Item</th>
+            <th>Delete User</th>
           </tr>
           {arrayUsers
             && arrayUsers.map((item, index) => {

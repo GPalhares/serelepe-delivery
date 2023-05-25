@@ -5,10 +5,10 @@ import '../../styles/cardDetailsPage/cardDetails.css';
 
 function OrderDetailSeller() {
   return (
-    <div className="checkoutPage">
+    <html lang="en" className="checkoutPage">
       <HeaderSeller />
       <CardDetailSeller />
-    </div>
+    </html>
   );
 }
 
