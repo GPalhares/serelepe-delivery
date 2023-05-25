@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import '../../styles/components/header.css';
 import { clearLocal, readLocal } from '../../helpers/localStorage';
 
 function HeaderAdmin() {
@@ -12,18 +12,19 @@ function HeaderAdmin() {
   }, []);
 
   return (
-    <div>
+    <div className="classHeader">
       <Link
+        className="header-link"
         to="/admin/manage"
         data-testid="customer_products__element-navbar-link-orders"
       >
-        {' '}
         User Manager
       </Link>
-      <div data-testid="customer_products__element-navbar-user-full-name">
-        <h3>{`User:${admin.name}`}</h3>
-      </div>
+
+      <h3 className="header-user-seller">{`${admin.name}`}</h3>
+
       <Link
+        className="logoutLink"
         to="/"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ () => clearLocal() }
