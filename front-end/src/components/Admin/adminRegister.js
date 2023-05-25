@@ -1,7 +1,6 @@
 /* eslint-disable  */
 import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -10,7 +9,6 @@ import fetchCreatingUserAdmin from "../../api/fetchCreatingUserAdmin";
 import stateGlobalContext from "../../context/stateGlobalContext";
 import { readLocal } from "../../helpers/localStorage";
 import "../../styles/checkoutPage/checkout.css";
-import { Box } from "@mui/material";
 
 function AdminRegister() {
   const [email, setEmail] = useState("");

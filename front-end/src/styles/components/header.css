@@ -2,45 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
 
 .classHeader {
+    position: flex;
     font-family: 'Secular One', sans-serif;
     background-color: #EB984E;
     padding: 8px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 20px;
+    width: 100%;
 }
 
 .header-link {
     margin-right: 20px;
-    margin-left: 20px;
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
-    /* Transição suave da cor */
 }
 
 .header-link:hover {
     color: #ffffff;
-    /* Altere para a cor desejada no hover */
 }
-
 
 .header-user {
-    margin-right: 20px;
-    margin-left: auto;
-}
-
-.header-link:last-child {
-    margin-right: 20px;
-    margin-left: 20px;
+    display: flex;
+    text-align: right;
 }
 
 .logoutLink {
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
-    /* Transição suave da cor */
-    margin-left: auto;
     margin-right: 20px;
 }
 
@@ -49,8 +41,37 @@
 }
 
 .header-user-seller {
+    display: flex;
+    text-align: right;
     color: #333;
     text-decoration: none;
-    margin-left: 75%;
     margin-right: 20px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 600px) {
+    .classHeader {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-link {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .header-link:last-child {
+        margin-bottom: 0;
+    }
+
+    .header-user {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logoutLink {
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }

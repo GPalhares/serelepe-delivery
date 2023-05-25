@@ -20,27 +20,27 @@ function ShoppingCartTotal() {
     }
   }, [myArray, localCart]);
 
+  const handleClick = () => {
+    if (total !== '0.00') {
+      setMyArray(sumItems(myArray));
+      history.push('/customer/checkout');
+    }
+  };
+
   return (
     <div>
       <button
         data-testid="customer_products__button-cart"
         type="submit"
         className="shopButton"
-        disabled={ disabled }
-        onClick={ () => {
-          setMyArray(sumItems(myArray));
-          history.push('/customer/checkout');
-        } }
-        style={ {
-
-        } }
+        disabled={ disabled || total === '0.00' }
+        onClick={ handleClick }
+        style={ total === '0.00' ? { backgroundColor: 'grey' } : {} }
       >
         <FaShoppingCart style={ { marginRight: '5px' } } />
         {' '}
-        {/* Ícone de carrinho de compras */}
         Buy Now
         {' '}
-        {/* Texto do botão */}
         <span data-testid="customer_products__checkout-bottom-value">
           {' '}
           R$
@@ -48,7 +48,6 @@ function ShoppingCartTotal() {
           {total.replace('.', ',')}
         </span>
         {' '}
-        {/* Valor total */}
       </button>
     </div>
   );
