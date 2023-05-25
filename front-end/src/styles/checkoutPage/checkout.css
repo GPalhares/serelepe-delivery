@@ -18,6 +18,7 @@
 }
 
 .shopping-cart-table {
+    font-family: 'Secular One', sans-serif;
     background-color: #FCF3CF;
     display: flex;
     flex-direction: column;
@@ -98,9 +99,20 @@
     font-weight: bold;
 }
 
+.nativeSelect {
+    border-bottom: none;
+}
+
 
 .shopping-cart-table select {
+    font-family: 'Secular One', sans-serif;
     padding: 16.5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.shopping-cart-table div {
+    font-family: 'Secular One', sans-serif;
+    padding: 2px;
+    text-align: center;
 }

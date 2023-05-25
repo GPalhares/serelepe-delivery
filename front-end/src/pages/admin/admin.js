@@ -3,6 +3,7 @@ import HeaderAdmin from '../../components/Admin/HeaderAdmin';
 import AdminDetail from '../../components/Admin/adminDetail';
 import AdminRegister from '../../components/Admin/adminRegister';
 import stateGlobalContext from '../../context/stateGlobalContext';
+import '../../styles/checkoutPage/checkout.css';
 
 function Admin() {
   const [arrayUsers, setArrayUsers] = useState([]);
@@ -14,7 +15,7 @@ function Admin() {
   ]);
 
   return (
-    <div>
+    <div className="checkoutPage">
       <stateGlobalContext.Provider value={ stateValue }>
         <HeaderAdmin />
         <AdminRegister />

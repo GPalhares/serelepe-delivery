@@ -1,8 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import fetchGetAllUsers from '../../api/fetchGetAllUsers';
 import { readLocal } from '../../helpers/localStorage';
 import fetchDeleteUser from '../../api/fetchDeleteUser';
 import stateGlobalContext from '../../context/stateGlobalContext';
+import '../../styles/checkoutPage/checkout.css';
 
 function AdminDetail() {
   const { arrayUsers, setArrayUsers } = useContext(stateGlobalContext);
@@ -27,12 +30,12 @@ function AdminDetail() {
     return userToBeDeleted;
   };
   return (
-    <>
-      <h3>User List</h3>
+    <div className="shopping-cart-table">
+      <h2>User List</h2>
       <table>
         <tbody>
           <tr>
-            <th>Item</th>
+            <th>User</th>
             <th>Name</th>
             <th>Email</th>
             <th>Type</th>
@@ -43,27 +46,27 @@ function AdminDetail() {
             const personName = `admin_manage__element-user-table-name-${index}`;
             const email = `admin_manage__element-user-table-email-${index}`;
             const role = `admin_manage__element-user-table-role-${index}`;
-            const deleteItem = `admin_manage__element-user-table-remove-${index}`;
             return (
               <tr key={ item.id }>
                 <td data-testid={ itemNumber }>{ index + 1 }</td>
                 <td data-testid={ personName }>{ item.name }</td>
                 <td data-testid={ email }>{item.email }</td>
                 <td data-testid={ role }>{ item.role }</td>
-                <td data-testid={ deleteItem }>
-                  <button
-                    type="button"
+                <td>
+                  <IconButton
+                    type="submit"
                     onClick={ () => deleteUser(item.id) }
                   >
-                    Delete
-                  </button>
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
                 </td>
+
               </tr>
             );
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 
