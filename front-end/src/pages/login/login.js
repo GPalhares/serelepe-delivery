@@ -14,6 +14,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 
+
 function LoginPage() {
   const history = useHistory();
 
@@ -75,6 +76,7 @@ function LoginPage() {
     }
   }, [history]);
 
+
   return (
     <html className="classHtml" lang="en">
       <div className="divLogin">
@@ -134,7 +136,8 @@ function LoginPage() {
                   backgroundColor: checkingFormatt() ? "grey" : "#dd571c",
                   margin: "5px",
                   color: "white",
-                  display: "flex"
+                  display: "flex",
+
                 }}
                 disabled={checkingFormatt()}
                 data-testid="common_login__button-login"
@@ -146,6 +149,7 @@ function LoginPage() {
               >
                 Login
               </Button>
+
               <Button
                 variant="contained"
                 style={{
