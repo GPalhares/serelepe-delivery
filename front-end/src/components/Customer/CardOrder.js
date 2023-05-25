@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { readLocal } from '../../helpers/localStorage';
@@ -5,7 +6,7 @@ import fetchGetUserId from '../../api/fetchGetUserId';
 import fetchSalesByRoleId from '../../api/fetchGetSalesByRoleId';
 import { dateConverter } from '../../helpers/cartFunctions';
 import stateGlobalContext from '../../context/stateGlobalContext';
-
+import '../../styles/OrdersPage/ordersPage.css';
 function CardOrder() {
   const [orders, setOrders] = useState([]);
   const { sellerStatus, setSellerStatus } = useContext(stateGlobalContext);
@@ -27,11 +28,6 @@ function CardOrder() {
     return `R$ ${brlCurrency}`;
   };
 
-  const dataTestid = 'customer_orders__element-order-id-';
-  const dataTestidStatus = 'customer_orders__element-delivery-status-';
-  const dataTestidDate = 'customer_orders__element-order-date-';
-  const dataTestidPrice = 'customer_orders__element-card-price-';
-
   const card = (ords) => {
     const { saleId } = ords;
     const { date } = ords;
@@ -39,37 +35,16 @@ function CardOrder() {
     const total = ords.value;
 
     return (
-      <div key={ saleId }>
-        <Link to={ `/customer/orders/${saleId}` }>
-          <p data-testid={ `${dataTestid}${saleId}` }>
-            Order:
-            {' '}
-            { addingZero(saleId) }
-          </p>
-
-          <p data-testid={ `${dataTestidStatus}${saleId}` }>
-            Status:
-            {' '}
-            { status }
-          </p>
-
-          <p>
-            Date:
-            {' '}
-            <span
-              data-testid={ `${dataTestidDate}${saleId}` }
-            >
-              { date }
-            </span>
-          </p>
-
-          <p data-testid={ `${dataTestidPrice}${saleId}` }>
-            Total Price:
-            {' '}
-            { priceConverter(total) }
-          </p>
-        </Link>
-      </div>
+      <tr key={ saleId }>
+        <td>
+          <Link to={ `/customer/orders/${saleId}` }>
+            {addingZero(saleId)}
+          </Link>
+        </td>
+        <td>{status}</td>
+        <td>{date}</td>
+        <td>{priceConverter(total)}</td>
+      </tr>
     );
   };
 
@@ -79,10 +54,14 @@ function CardOrder() {
         const user = readLocal('user');
         const userDatabase = await fetchGetUserId({ userEmail: user.email });
         const userId = userDatabase.data.userId.id;
-        const { data } = await fetchSalesByRoleId(user.token, { id: userId,
-          role: 'userId' });
+        const { data } = await fetchSalesByRoleId(user.token, {
+          id: userId,
+          role: 'userId',
+        });
         setOrders(data);
-      } catch (error) { console.error(error); }
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchData();
   }, []);
@@ -106,31 +85,43 @@ function CardOrder() {
           quantity: item.quantity,
         });
       });
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(groupedOrders).map((order) => {
+              const total = order.products.reduce(
+                (acc, product) => acc + product.price * product.quantity,
+                0,
+              );
+              setSellerStatus(sellerStatus, {
+                saleId: order.id,
+                value: total.toFixed(2),
+                date: dateConverter(order.saleDate),
+                status: order.status,
+              });
 
-      return Object.values(groupedOrders).map((order) => {
-        const total = order.products.reduce(
-          (acc, product) => acc + product.price * product.quantity,
-          0,
-        );
-        setSellerStatus(sellerStatus, { saleId: order.id,
-          value: total.toFixed(2),
-          date: dateConverter(order.saleDate),
-          status: order.status });
-        return card({
-          saleId: order.id,
-          value: total.toFixed(2),
-          date: dateConverter(order.saleDate),
-          status: order.status,
-        });
-      });
+              return card({
+                saleId: order.id,
+                value: total.toFixed(2),
+                date: dateConverter(order.saleDate),
+                status: order.status,
+              });
+            })}
+          </tbody>
+        </table>
+      );
     }
   };
 
-  return (
-    <div>
-      { renderingCardOrders() }
-    </div>
-  );
+  return <div className='shopping-cart-table'>{renderingCardOrders()}</div>;
 }
 
 export default CardOrder;

@@ -1,0 +1,56 @@
+/* stylelint-disable */
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+.classHeader {
+    font-family: 'Secular One', sans-serif;
+    background-color: #EB984E;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.header-link {
+    margin-right: 20px;
+    margin-left: 20px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    /* Transição suave da cor */
+}
+
+.header-link:hover {
+    color: #ffffff;
+    /* Altere para a cor desejada no hover */
+}
+
+
+.header-user {
+    margin-right: 20px;
+    margin-left: auto;
+}
+
+.header-link:last-child {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.logoutLink {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    /* Transição suave da cor */
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.logoutLink:hover {
+    color: #ffffff;
+}
+
+.header-user-seller {
+    color: #333;
+    text-decoration: none;
+    margin-left: 75%;
+    margin-right: 20px;
+}

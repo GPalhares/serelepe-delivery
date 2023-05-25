@@ -1,0 +1,17 @@
+/* stylelint-disable */
+.shopButton {
+    align-items: center;
+    padding: 20px;
+    background-color: #EB984E;
+    color: black;
+    border-radius: 8px;
+    border: 1.5px solid black;
+    font-size: 30px;
+    transition: background-color 0.3s;
+}
+
+
+button:hover {
+    background-color: #dd571c;
+    color: white;
+}

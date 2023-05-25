@@ -1,16 +1,26 @@
 /* stylelint-disable */
-.classHtml::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #f2bb05;
-    opacity: 0.8;
-    backdrop-filter: blur(8px);
-    z-index: -1;
+
+@media (max-width: 768px) {
+    .divLogoSerelepe {
+        height: 0px;
+        width: 0;
+    }
+
+    .logoSerelepe {
+        display: none;
+        width: 0px;
+    }
+
+    .divLogin {
+        width: 100%;
+        margin-top: 15%;
+
+    }
 }
+
+
+
+
 
 
 .divLogin {
@@ -25,6 +35,8 @@
     margin-left: 20%;
     width: 50%;
 }
+
+
 
 
 .logoSerelepe {

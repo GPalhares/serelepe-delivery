@@ -8,7 +8,10 @@ function ProductsPage() {
     <>
       <Header />
       <CardList />
-      <ShoppingCartTotal />
+      <footer>
+        <ShoppingCartTotal />
+      </footer>
+
     </>
   );
 }

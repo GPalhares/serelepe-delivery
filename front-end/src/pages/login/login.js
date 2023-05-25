@@ -13,6 +13,8 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+
+
 function LoginPage() {
   const history = useHistory();
 
@@ -74,8 +76,9 @@ function LoginPage() {
     }
   }, [history]);
 
+
   return (
-    <html className="classHtml" lang="pt-br">
+    <html className="classHtml" lang="en">
       <div className="divLogin">
         <div className="divLogoSerelepe">
           <img  draggable="false" className="logoSerelepe" src={logoTransparent} alt="Logo" />
@@ -88,7 +91,7 @@ function LoginPage() {
               "& > :not(style)": { m: 1 }
             }}
           >
-            <h1>Login</h1>
+            <h1>Welcome</h1>
 
             <TextField
               className="inputField"
@@ -130,10 +133,11 @@ function LoginPage() {
             <Stack direction="row" spacing={2}>
               <Button
                 style={{
-                  backgroundColor: checkingFormatt() ? "grey" : "#6e0e0a",
+                  backgroundColor: checkingFormatt() ? "grey" : "#dd571c",
                   margin: "5px",
                   color: "white",
-                  display: "flex"
+                  display: "flex",
+
                 }}
                 disabled={checkingFormatt()}
                 data-testid="common_login__button-login"
@@ -145,13 +149,15 @@ function LoginPage() {
               >
                 Login
               </Button>
+
               <Button
                 variant="contained"
                 style={{
-                  backgroundColor: "#6e0e0a",
+                  backgroundColor: "#dd571c",
                   margin: "5px",
                   color: "white",
-                  display: "flex"
+                  display: "flex",
+
                 }}
                 data-testid="common_login__button-register"
                 type="submit"
