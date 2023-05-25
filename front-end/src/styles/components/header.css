@@ -34,3 +34,23 @@
     margin-right: 20px;
     margin-left: 20px;
 }
+
+.logoutLink {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    /* Transição suave da cor */
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.logoutLink:hover {
+    color: #ffffff;
+}
+
+.header-user-seller {
+    color: #333;
+    text-decoration: none;
+    margin-left: 75%;
+    margin-right: 20px;
+}

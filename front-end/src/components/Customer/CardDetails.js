@@ -149,7 +149,7 @@ function CardDetails() {
         <h1 data-testid="customer_order_details__element-order-details-label-seller-name">
           Seller: {seller}
         </h1>
-        <h1 data-testid={dataTestidDate}>SaleDate: {date}</h1>
+        <h1 data-testid={dataTestidDate}>Date: {date}</h1>
         <h1 data-testid={`customer_order_details__${dataTestidStatus}`}>
           Status: {status}
         </h1>
