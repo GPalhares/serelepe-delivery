@@ -20,7 +20,7 @@ function AdminDetail() {
         console.error(error);
       }
     };
-    fetchData();
+    try { fetchData(); } catch (error) { console.error(error); }
   }, [setArrayUsers]);
 
   const deleteUser = async (id) => {
