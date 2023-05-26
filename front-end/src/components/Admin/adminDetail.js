@@ -56,27 +56,26 @@ function AdminDetail() {
             <th>Type</th>
             <th>Delete User</th>
           </tr>
-          {arrayUsers
-            && arrayUsers.map((item, index) => {
-              const personName = `admin_manage__element-user-table-name-${index}`;
-              const email = `admin_manage__element-user-table-email-${index}`;
-              const role = `admin_manage__element-user-table-role-${index}`;
-              return (
-                <tr key={ item.id }>
-                  <td data-testid={ personName }>{item.name}</td>
-                  <td data-testid={ email }>{item.email}</td>
-                  <td data-testid={ role }>{item.role}</td>
-                  <td>
-                    <IconButton
-                      type="submit"
-                      onClick={ () => deleteUser(item.id) }
-                    >
-                      <DeleteOutlineOutlinedIcon />
-                    </IconButton>
-                  </td>
-                </tr>
-              );
-            })}
+          { arrayUsers?.map((item, index) => {
+            const personName = `admin_manage__element-user-table-name-${index}`;
+            const email = `admin_manage__element-user-table-email-${index}`;
+            const role = `admin_manage__element-user-table-role-${index}`;
+            return (
+              <tr key={ item.id }>
+                <td data-testid={ personName }>{item.name}</td>
+                <td data-testid={ email }>{item.email}</td>
+                <td data-testid={ role }>{item.role}</td>
+                <td>
+                  <IconButton
+                    type="submit"
+                    onClick={ () => deleteUser(item.id) }
+                  >
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
