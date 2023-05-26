@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 20px;
+
     justify-content: center;
     padding: 10px;
 }
@@ -25,4 +26,18 @@ footer {
     padding: 20px;
     width: 100%;
     text-align: right;
+}
+
+
+@media (max-width: 768px) {
+    footer {
+        position: fixed;
+        margin-right: 30%;
+        bottom: 0;
+        right: 0;
+        padding: 20px;
+        width: 100%;
+        text-align: right;
+    }
+
 }

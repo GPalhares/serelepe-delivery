@@ -135,7 +135,7 @@ function CardDetails() {
           </thead>
           <tbody>
             {orders.map((item, i) => (
-              <tr key={i}>
+              <tr key={item.product.name}>
                 <td>{item.product.name}</td>
                 <td>{item.quantity}</td>
                 <td>{priceConverter(item.product.price)}</td>

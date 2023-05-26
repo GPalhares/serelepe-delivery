@@ -2,24 +2,38 @@
 
 @media (max-width: 768px) {
     .divLogoSerelepe {
-        height: 0px;
-        width: 0;
+        padding-right: 15%;
+        margin-top: 160%;
+        position: absolute;
+        text-align: center;
     }
 
     .logoSerelepe {
-        display: none;
-        width: 0px;
+        height: 250px;
+        width: 250px;
+    }
+
+    .divLogin div {
+        width: 120%;
+    }
+
+    .divLogin button {
+        height: 80px;
+
     }
 
     .divLogin {
+        padding-top: 30%;
+    }
+
+    .divLogin input {
+
+
         width: 100%;
-        margin-top: 15%;
+        text-align: center;
 
     }
 }
-
-
-
 
 
 
