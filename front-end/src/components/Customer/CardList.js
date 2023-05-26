@@ -60,11 +60,11 @@ function CardList() {
     <html className="classHtml" lang="en">
       <p className="drinkTittle">Drinks</p>
       <div className="card-list">
-        {productsList.map((prod, index) => {
+        {productsList.map((prod) => {
           const cartItem = readLocal('cartItems')?.find((item) => item.id === prod.id);
           const quantity = cartItem?.quantity ?? 0;
           return (
-            <div key={ index }>
+            <div key={ prod.name }>
               <Card
                 name={ prod.name }
                 id={ prod.id }

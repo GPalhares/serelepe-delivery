@@ -50,40 +50,6 @@ function CardDetails() {
     "customer_order_details__element-order-details-label-order-id";
   const totalPriceTestId = "customer_order_details__element-order-total-price";
 
-  const cardProducts = (obj, i) => {
-    const { id, subTotal, name, unitPrice, quantity } = obj;
-    return (
-      <>
-        <p
-          data-testid={`customer_order_details__element-order-table-item-number-${i}`}
-        >
-          {" "}
-          ID :{id}
-        </p>
-        <p
-          data-testid={`customer_order_details__element-order-table-name-${i}`}
-        >
-          Nome : {name}
-        </p>
-        <p
-          data-testid={`customer_order_details__element-order-table-quantity-${i}`}
-        >
-          Quantidade : {quantity}
-        </p>
-        <p
-          data-testid={`customer_order_details__element-order-table-unit-price-${i}`}
-        >
-          Unit price: {priceConverter(unitPrice)}
-        </p>
-        <p
-          data-testid={`customer_order_details__element-order-table-sub-total-${i}`}
-        >
-          SubTotal:
-          {priceConverter(subTotal)}
-        </p>
-      </>
-    );
-  };
 
   const fetchStatus = async () => {
     const user = readLocal("user");

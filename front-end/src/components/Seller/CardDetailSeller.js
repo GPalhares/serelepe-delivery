@@ -102,7 +102,7 @@ function OrderDetailSeller() {
             <th>Unit Price</th>
             <th>Subtotal</th>
           </tr>
-          {order && order.map((product, i) => {
+          {order?.map((product, i) => {
             const item = `seller_order_details__element-order-table-item-number-${i}`;
             const description = `seller_order_details__element-order-table-name-${i}`;
             const quantity = `seller_order_details__element-order-table-quantity-${i}`;
