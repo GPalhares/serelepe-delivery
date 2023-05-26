@@ -39,9 +39,15 @@ function AdminDetail() {
       }
     };
 
-    if (arrayUsers && arrayUsers.length > 0) {
-      fetchData();
-    }
+    const loadData = async () => {
+      try {
+        if (arrayUsers && arrayUsers.length > 0) {
+          await fetchData();
+        }
+      } catch (error) { console.error(error); }
+    };
+
+    loadData();
   }, [arrayUsers, setArrayUsers]);
 
   return (
