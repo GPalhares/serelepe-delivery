@@ -18,17 +18,13 @@ function AdminDetail() {
         setArrayUsers(result.data);
       } catch (error) {
         console.error(error);
-      }
-    };
-    const fetchDataAsync = async () => {
-      try {
-        await fetchData();
-      } catch (error) {
-        console.error(error);
+        throw error;
       }
     };
 
-    fetchDataAsync();
+    fetchData().catch((error) => {
+      console.error(error);
+    });
   }, [setArrayUsers]);
 
   const deleteUser = async (id) => {
