@@ -51,7 +51,9 @@ function AdminDetail() {
       } catch (error) { console.error(error); }
     };
 
-    loadData();
+    loadData().catch((error) => {
+      console.error(error);
+    });
   }, [arrayUsers, setArrayUsers]);
 
   return (
