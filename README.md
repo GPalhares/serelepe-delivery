@@ -1,4 +1,4 @@
-# 🦅 Urubu Delivery
+# Serelepe Delivery
 
 Este projeto é um aplicativo de delivery desenvolvido para os clientes, funcionários e administradores de uma empresa. Ele permite vendas de produtos, registro de novos usuários, acompanhamento de pedidos e gerenciamento de usuários e pedidos.
 
