@@ -9,14 +9,14 @@ Todos os usuários têm acesso através do login com diferentes permissões. O a
 ## Sumário
 
  - [Sobre o projeto](#sobre-o-projeto)
- - [Front-End](## Front-End)
- - [Back-End](## Back-End)
- - [Tecnologias Utilizadas](## Front-End)
- - [Instalação](## Instalação)
- - [Banco de Dados](## Banco de Dados)
- - [API](## API)
- - [Habilidades](## Habilidades:)
- - [Um pouco sobre o Grupo](##### Depoimetos sobre o projeto)
+ - [Front-End](#front-end)
+ - [Back-End](#back-end)
+ - [Tecnologias Utilizadas](#front-end)
+ - [Instalação](#instalação)
+ - [Banco de Dados](#banco-de-dados)
+ - [API](#api)
+ - [Habilidades](#habilidades)
+ - [Um pouco sobre o Grupo](#depoimetos-sobre-o-projeto)
 
 ## Sobre o projeto
 
