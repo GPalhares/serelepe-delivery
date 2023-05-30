@@ -9,14 +9,14 @@ Todos os usuários têm acesso através do login com diferentes permissões. O a
 ## Sumário
 
  - [Sobre o projeto](#sobre-o-projeto)
- - [Front-End]()
- - [Back-End]()
- - [Tecnologias Utilizadas]()
- - [Instalação]()
- - [Banco de Dados]()
- - [API]()
- - [Habilidades]()
- - [Um pouco sobre o Grupo]()
+ - [Front-End](## Front-End)
+ - [Back-End](## Back-End)
+ - [Tecnologias Utilizadas](## Front-End)
+ - [Instalação](## Instalação)
+ - [Banco de Dados](## Banco de Dados)
+ - [API](## API)
+ - [Habilidades](## Habilidades:)
+ - [Um pouco sobre o Grupo](##### Depoimetos sobre o projeto)
 
 ## Sobre o projeto
 
@@ -33,6 +33,7 @@ Como seu antigo sistema, que era um conjunto de planilhas, já não atende a nec
 - 🗣 👥 Fazer a comunicação entre clientes e pessoas vendedoras: a pessoa cliente faz o pedido via "carrinho de compras" e a pessoa vendedora aprova, prepara e envia esse pedido. Quando o produto é recebido por quem comprou, essa pessoa marca o pedido como "recebido". Ambos devem possuir detalhes sobre seus pedidos.
 
 - 🏍 Se a pessoa cliente faz o pedido, o mesmo deve aparecer para a pessoa vendedora em seu dash de pedidos após a atualização da página. A pessoa cliente, por sua vez, deve ter as informações sobre seu pedido quando sua página for atualizada, ou seja, ter informações se o pedido está sendo preparado ou se já saiu pra entrega.
+
 ## Front-End
 
 O Front-End foi desenvolvido com as seguintes ferramentas:
@@ -54,6 +55,12 @@ O Back-End foi desenvolvido com as seguintes ferramentas:
 - Mocha
 - Chai
 - Sinon
+
+## Testes
+- RTL
+- Chai e Sinon
+- Jest
+
 ## Instalação
 
 🤖 Comandos necessarios para o uso:
