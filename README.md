@@ -711,6 +711,7 @@ O grupo é composto dos seguintes desenvolvedores:
 #### Redes de Victor
 - E-mail: victor_cabral_o@hotmail.com
 - LinkedIn: https://www.linkedin.com/in/victor-alejandro-orellana/
+- Github : https://github.com/mendokusaiiii
 
 #### Redes de Yuzo
 - E-mail: fabioymatoba@uol.com.br
